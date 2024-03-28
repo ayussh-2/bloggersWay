@@ -5,9 +5,11 @@ const cors = require("cors");
 const app = express();
 
 const userAuthRoutes = require("./routes/userAuth");
+const blogPostRoutes = require("./routes/blogPost");
 app.use(express.json());
 app.use(cors());
 app.use("/api/users", userAuthRoutes);
+app.use("/api/blogs", blogPostRoutes);
 
 app.get("/", (req, res) => {
     res.json({ msg: "Hello from backend" });
