@@ -59,16 +59,15 @@ export default function App() {
         axios
             .post(proxy + "/api/users/login", user)
             .then(function (res) {
-                console.log(res);
-
+                localStorage.setItem("id", res.data.user._id);
                 setUserStatus({
                     ...userStatus,
                     type: "success",
                     message: "Login Succesfull",
                 });
+                window.location.href = "/";
             })
             .catch(function (err) {
-                // console.log(err);
                 setUserStatus({
                     ...userStatus,
                     type: "error",

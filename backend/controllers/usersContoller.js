@@ -4,9 +4,10 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
         const userDetails = await user.login(email, password);
-        res.status(200).json(userDetails);
+        res.status(200).json({ msg: "success", user: userDetails });
+        // console.log(userDetails);
     } catch (err) {
-        res.status(400).json({ err: "User not found!" });
+        res.status(400).json({ msg: "User not found!" });
     }
 };
 

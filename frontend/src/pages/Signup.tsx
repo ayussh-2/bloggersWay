@@ -19,9 +19,7 @@ export default function Signup({ handleSignup, status }: Props) {
         email: "",
         password: "",
     });
-    // useEffect(() => {
-    //     console.log(status);
-    // }, []);
+
     return (
         <div className="grid h-screen place-items-center font-poppins">
             {status.type !== "" && (
