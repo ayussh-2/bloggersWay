@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Toast from "../components/Toast";
 type Props = {
     handleSignup: (user: {
@@ -6,19 +7,27 @@ type Props = {
         email: string;
         password: string;
     }) => void;
-    success: boolean;
+    status: {
+        type: string;
+        message: string;
+    };
 };
 
-export default function Signup({ handleSignup, success }: Props) {
+export default function Signup({ handleSignup, status }: Props) {
     const [user, setUser] = useState({
         name: "",
         email: "",
         password: "",
     });
-
+    // useEffect(() => {
+    //     console.log(status);
+    // }, []);
     return (
-        <div className="grid h-screen place-items-center">
-            {success && <Toast type="success" message="Account Created!" />}
+        <div className="grid h-screen place-items-center font-poppins">
+            {status.type !== "" && (
+                <Toast type={status.type} message={status.message} />
+            )}
+
             <div className="flex flex-col gap-5">
                 <h1 className="text-2xl text-center">SIGNUP</h1>
                 <label className="input input-bordered flex items-center gap-2">
@@ -81,9 +90,14 @@ export default function Signup({ handleSignup, success }: Props) {
                         }
                     />
                 </label>
-                <button className="btn" onClick={() => handleSignup(user)}>
-                    GO
-                </button>
+                <div className="flex items-center justify-between">
+                    <button className="btn" onClick={() => handleSignup(user)}>
+                        GO
+                    </button>
+                    <Link to="/login">
+                        <button className="btn">Login</button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

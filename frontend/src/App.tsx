@@ -10,26 +10,70 @@ import Signup from "./pages/Signup";
 export default function App() {
     const location = useLocation();
     const proxy: String = "http://localhost:4000";
-    const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
-
+    const [userStatus, setUserStatus] = useState<object>({
+        type: "",
+        message: "",
+    });
     function signupUser(user: {
         name: String;
         email: string;
         password: String;
     }) {
         if (user.name === "" || user.email === "" || user.password === "") {
-            alert("Please input every field");
+            setUserStatus({
+                ...userStatus,
+                type: "error",
+                message: "Please fill all the fields",
+            });
             return;
         }
-        console.log(user);
         axios
             .post(proxy + "/api/users/signup", user)
             .then(function (res) {
                 console.log(res);
-                setRegisterSuccess(true);
+                setUserStatus({
+                    ...userStatus,
+                    type: "success",
+                    message: "Registration Succesfull",
+                });
             })
             .catch(function (err) {
-                console.error(err);
+                // console.error(err.response.data.msg);
+                setUserStatus({
+                    ...userStatus,
+                    type: "error",
+                    message: err.response.data.msg,
+                });
+            });
+    }
+
+    function loginUser(user: { email: string; password: String }) {
+        if (user.email === "" || user.password === "") {
+            setUserStatus({
+                ...userStatus,
+                type: "error",
+                message: "Please fill all the fields",
+            });
+            return;
+        }
+        axios
+            .post(proxy + "/api/users/login", user)
+            .then(function (res) {
+                console.log(res);
+
+                setUserStatus({
+                    ...userStatus,
+                    type: "success",
+                    message: "Login Succesfull",
+                });
+            })
+            .catch(function (err) {
+                // console.log(err);
+                setUserStatus({
+                    ...userStatus,
+                    type: "error",
+                    message: err.response.data.msg,
+                });
             });
     }
     return (
@@ -37,13 +81,21 @@ export default function App() {
             <Suspense fallback={<Fallback />}>
                 <Routes key={location.pathname} location={location}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/login"
+                        element={
+                            <Login
+                                handleLogin={loginUser}
+                                status={userStatus}
+                            />
+                        }
+                    />
                     <Route
                         path="/signup"
                         element={
                             <Signup
                                 handleSignup={signupUser}
-                                success={registerSuccess}
+                                status={userStatus}
                             />
                         }
                     />
