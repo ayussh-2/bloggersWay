@@ -29,4 +29,15 @@ const createBlog = async (req, res) => {
     }
 };
 
-module.exports = { createBlog };
+const getAllBlogs = async (req, res) => {
+    const { page, blogPerPage } = req.body;
+    try {
+        const blogs = await blog.getBlogs(page, blogPerPage);
+        // return blogs;
+        res.status(200).json(blogs);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+module.exports = { createBlog, getAllBlogs };

@@ -36,5 +36,11 @@ blogSchema.statics.createBlog = async function (
     });
     return blogPost;
 };
+blogSchema.statics.getBlogs = async function (page, blogPerPage) {
+    const blogs = this.find()
+        .skip(blogPerPage * page)
+        .limit(blogPerPage);
+    return blogs;
+};
 
 module.exports = mongoose.model("blog", blogSchema);
