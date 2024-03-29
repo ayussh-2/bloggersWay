@@ -1,13 +1,9 @@
 import { useState } from "react";
-import Toast from "../components/Toast";
+
 type Props = {
     handleLogin: (user: { email: string; password: string }) => void;
-    status: {
-        type: string;
-        message: string;
-    };
 };
-export default function Login({ handleLogin, status }: Props) {
+export default function Login({ handleLogin }: Props) {
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -15,9 +11,6 @@ export default function Login({ handleLogin, status }: Props) {
 
     return (
         <div className="grid h-screen place-items-center">
-            {status.type !== "" && (
-                <Toast type={status.type} message={status.message} />
-            )}
             <div className="flex flex-col gap-5">
                 <h1 className="text-2xl text-center">LOGIN</h1>
                 <label className="input input-bordered flex items-center gap-2">

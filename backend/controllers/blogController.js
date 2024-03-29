@@ -5,7 +5,8 @@ const createBlog = async (req, res) => {
         author,
         title,
         locations,
-        imgs,
+        cover,
+        multiImage,
         hotspots,
         route,
         about,
@@ -17,13 +18,14 @@ const createBlog = async (req, res) => {
             author,
             title,
             locations,
-            imgs,
+            cover,
+            multiImage,
             hotspots,
             route,
             about,
             stories
         );
-        res.status(200).json(data);
+        res.status(200).json({ msg: "Blog created successfully" });
     } catch (err) {
         console.log(err);
     }

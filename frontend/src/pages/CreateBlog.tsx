@@ -1,6 +1,71 @@
-export default function CreateBlog() {
+import { useState, useEffect } from "react";
+
+export default function CreateBlog({
+    handleCreateBlog,
+    handleUploadImage,
+}: {
+    handleCreateBlog: Function;
+    handleUploadImage: Function;
+}) {
+    const [blog, setBlog] = useState({
+        uid: "",
+        author: "",
+        title: "",
+        locations: "",
+        hotspots: "",
+        route: "",
+        about: "",
+        stories: "",
+        cover: "",
+        multiImage: Array,
+    });
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        if (user.uid) {
+            setBlog({ ...blog, uid: user.uid, author: user.name });
+        } else {
+            window.location.href = "/login";
+        }
+    }, []);
+
+    const [coverImage, setCoverImage] = useState(null);
+    const [multiImage, setMultiImage] = useState(null);
+
+    async function uploadImages(images: any) {
+        const uploadedImages = await Promise.all(
+            images.map(async (img: any) => {
+                return await handleUploadImage(img, "multiImage");
+            })
+        );
+        return uploadedImages;
+    }
+    async function handleSubmit(e: any) {
+        e.preventDefault();
+
+        if (
+            blog.title === "" ||
+            blog.locations === "" ||
+            blog.hotspots === "" ||
+            blog.route === "" ||
+            blog.about === "" ||
+            blog.stories === ""
+        ) {
+            alert("Please fill all the fields");
+            return;
+        }
+        const coverImgUrl = await handleUploadImage(coverImage, "cover");
+        const multiImgUrls = await uploadImages(Array.from(multiImage || []));
+
+        handleCreateBlog({
+            ...blog,
+            cover: coverImgUrl,
+            multiImage: multiImgUrls,
+        });
+    }
+
     return (
-        <div className="container mx-auto mt-10 p-5 font-poppins">
+        <div className="container mx-auto px-20 mt-10 p-5 font-poppins">
             <h1 className="text-2xl font-bold mb-5">Create New Blog</h1>
             <form className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -16,6 +81,10 @@ export default function CreateBlog() {
                             id="title"
                             placeholder="A trip to Hawaii"
                             className="input-med"
+                            value={blog.title}
+                            onChange={(e) =>
+                                setBlog({ ...blog, title: e.target.value })
+                            }
                         />
                     </div>
                     <div>
@@ -30,6 +99,10 @@ export default function CreateBlog() {
                             id="locations"
                             placeholder="Some intresting locations"
                             className="input-med"
+                            value={blog.locations}
+                            onChange={(e) =>
+                                setBlog({ ...blog, locations: e.target.value })
+                            }
                         />
                     </div>
                     <div>
@@ -43,6 +116,10 @@ export default function CreateBlog() {
                             id="hotspots"
                             placeholder="What are the things to do?"
                             className="txtArea"
+                            value={blog.hotspots}
+                            onChange={(e) =>
+                                setBlog({ ...blog, hotspots: e.target.value })
+                            }
                         />
                     </div>
                     <div>
@@ -56,6 +133,10 @@ export default function CreateBlog() {
                             id="route"
                             placeholder="How do we reach there?"
                             className="txtArea"
+                            value={blog.route}
+                            onChange={(e) =>
+                                setBlog({ ...blog, route: e.target.value })
+                            }
                         />
                     </div>
                 </div>
@@ -70,6 +151,10 @@ export default function CreateBlog() {
                         id="about"
                         placeholder="Tell us something about the place"
                         className="txtArea"
+                        value={blog.about}
+                        onChange={(e) =>
+                            setBlog({ ...blog, about: e.target.value })
+                        }
                     />
                 </div>
                 <div>
@@ -83,9 +168,13 @@ export default function CreateBlog() {
                         id="stories"
                         placeholder="Some intresting stories"
                         className="txtArea"
+                        value={blog.stories}
+                        onChange={(e) =>
+                            setBlog({ ...blog, stories: e.target.value })
+                        }
                     />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-col md:flex-row gap-5 my-10">
                     <div className="flex flex-col">
                         <label
                             htmlFor="cover"
@@ -97,6 +186,9 @@ export default function CreateBlog() {
                             type="file"
                             id="cover"
                             className="file-input file-input-bordered w-full max-w-xs"
+                            onChange={(e) => setCoverImage(e.target.files[0])}
+                            accept="image/*"
+                            max={1}
                         />
                     </div>
                     <div className="flex flex-col">
@@ -110,12 +202,20 @@ export default function CreateBlog() {
                             type="file"
                             id="multiImage"
                             className="file-input file-input-bordered w-full max-w-xs"
+                            accept="image/*"
+                            multiple
+                            max={4}
+                            onChange={(e) => setMultiImage(e.target.files)}
                         />
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <button type="submit" className="btn">
-                        Submit
+                    <button
+                        type="submit"
+                        className="btn"
+                        onClick={(e) => handleSubmit(e)}
+                    >
+                        Preview
                     </button>
                 </div>
             </form>

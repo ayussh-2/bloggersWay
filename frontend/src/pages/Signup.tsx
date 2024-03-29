@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import Toast from "../components/Toast";
+
 type Props = {
     handleSignup: (user: {
         name: string;
         email: string;
         password: string;
     }) => void;
-    status: {
-        type: string;
-        message: string;
-    };
 };
 
-export default function Signup({ handleSignup, status }: Props) {
+export default function Signup({ handleSignup }: Props) {
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -22,10 +18,6 @@ export default function Signup({ handleSignup, status }: Props) {
 
     return (
         <div className="grid h-screen place-items-center font-poppins">
-            {status.type !== "" && (
-                <Toast type={status.type} message={status.message} />
-            )}
-
             <div className="flex flex-col gap-5">
                 <h1 className="text-2xl text-center">SIGNUP</h1>
                 <label className="input input-bordered flex items-center gap-2">
