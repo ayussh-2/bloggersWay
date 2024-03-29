@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.input-med {
+    @apply input input-bordered w-full max-w-xs;
+}
+.txtArea {
+    @apply textarea textarea-bordered w-full;
+}

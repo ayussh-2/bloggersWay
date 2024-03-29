@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/Notfound";
 import Signup from "./pages/Signup";
+import CreateBlog from "./pages/CreateBlog";
 
 export default function App() {
     const location = useLocation();
@@ -98,6 +99,7 @@ export default function App() {
                             />
                         }
                     />
+                    <Route path="/create" element={<CreateBlog />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Suspense>
