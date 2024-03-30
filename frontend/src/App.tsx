@@ -10,7 +10,7 @@ import CreateBlog from "./pages/CreateBlog";
 import { storage } from "./config/firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { ToastContainer, toast, Slide } from "react-toastify";
-
+import Navbar from "./components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
 export default function App() {
     const location = useLocation();
@@ -116,6 +116,7 @@ export default function App() {
                 theme="colored"
                 transition={Slide}
             />
+            <Navbar />
             <Suspense fallback={<Fallback />}>
                 <Routes key={location.pathname} location={location}>
                     <Route

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "lemonBold";
+    src: url("./assets/fonts/LEMONMILK-Bold.otf");
+}
+
+@font-face {
+    font-family: "lemonMed";
+    src: url("./assets/fonts/LEMONMILK-Medium.otf");
+}

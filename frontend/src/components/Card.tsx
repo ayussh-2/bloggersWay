@@ -19,13 +19,19 @@ function Card({
         }
     }
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card group cursor-pointer w-96 bg-base-100 shadow-lg hover:shadow-2xl duration-500 active:scale-95 font-noto">
             <figure className="overflow-hidden w-96 h-60">
-                <img src={cover} alt="Cover-img" />
+                <img
+                    src={cover}
+                    alt="Cover-img"
+                    className="group-hover:scale-110 duration-500"
+                />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">{title}</h2>
-                <p>{limitWords(info, 20)}</p>
+                <h2 className={`card-title ${title === "" ? "skeleton" : ""}`}>
+                    {title}
+                </h2>
+                <p className="text-base mb-5 mt-2">{limitWords(info, 20)}</p>
                 <div className="card-actions justify-end">
                     <div className="badge badge-outline">{author}</div>
                 </div>

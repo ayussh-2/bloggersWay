@@ -5,6 +5,11 @@ export default {
         extend: {
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],
+                lato: ["Lato", "sans-serif"],
+                noto: ["Noto Sans", "sans-serif"],
+                cursive: ["Oooh Baby", "cursive"],
+                lemonBld: ["lemonBold", "sans-serif"],
+                lemonMed: ["lemonMed", "sans-serif"],
             },
         },
     },

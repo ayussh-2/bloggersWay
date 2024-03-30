@@ -1,0 +1,111 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+export default function Navbar() {
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user") as string);
+        if (user !== null || user) {
+        }
+    }, []);
+    return (
+        <div className="navbar bg-base-100 md:px-36">
+            <div className="navbar-start">
+                <Link to={"/"}>
+                    <p className=" text-xl font-lemonBld font-bold py-5 mx-5">
+                        <span className="font-extrabold text-4xl">B</span>
+                        loggers Way
+                    </p>
+                </Link>
+            </div>
+            <div className="navbar-end"></div>
+
+            <div className="navbar-end">
+                <Link to={"/login"}>
+                    <button className="btn btn-ghost btn-circle">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="w-4 h-4 opacity-70"
+                        >
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                        </svg>
+                    </button>
+                </Link>
+
+                <div className="drawer w-0 drawer-end z-20">
+                    <label
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-ghost btn-circle"
+                        htmlFor="drawer"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4 6h16M4 12h16M4 18h7"
+                            />
+                        </svg>
+                    </label>
+                    <input
+                        id="drawer"
+                        type="checkbox"
+                        className="drawer-toggle"
+                    />
+                    <div className="drawer-side">
+                        <label
+                            htmlFor="drawer"
+                            aria-label="close sidebar"
+                            className="drawer-overlay"
+                        ></label>
+
+                        <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content font-poppins">
+                            <h2 className="font-lemonMed text-center text-xl my-10">
+                                Welcome User
+                            </h2>
+                            <div className="mt-5">
+                                <h3 className="font-lemonBld text-sm mb-3">
+                                    Blog
+                                </h3>
+                                <li>
+                                    <Link to={"/create"}>
+                                        <span className="capitalize text-lg">
+                                            Write a travel Blog?
+                                        </span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <span className="capitalize text-lg">
+                                        My favorites
+                                    </span>
+                                </li>
+                            </div>
+                            <div className="mt-5">
+                                <h3 className="font-lemonBld text-sm mb-3">
+                                    BloggersWay
+                                </h3>
+                                <li>
+                                    <span className="capitalize text-lg">
+                                        Who are we?
+                                    </span>
+                                </li>
+                                <li>
+                                    <span className="capitalize text-lg">
+                                        Having trouble?
+                                    </span>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
