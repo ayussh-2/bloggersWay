@@ -47,8 +47,17 @@ blogSchema.statics.getBlogs = async function (page, blogPerPage) {
     const blogs = this.find()
         .skip((page - 1) * blogPerPage)
         .limit(blogPerPage);
-
     return blogs;
+};
+
+blogSchema.statics.getCount = async function () {
+    try {
+        const count = await this.countDocuments({}).exec();
+        return count;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 };
 
 module.exports = mongoose.model("blog", blogSchema);

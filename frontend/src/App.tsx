@@ -12,13 +12,11 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import Navbar from "./components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./components/Footer";
 export default function App() {
     const location = useLocation();
     const proxy: String = "http://localhost:4000";
-    const [userStatus, setUserStatus] = useState<object>({
-        type: "",
-        message: "",
-    });
+
     function signupUser(user: {
         name: String;
         email: string;
@@ -101,6 +99,15 @@ export default function App() {
         });
         return response.data;
     }
+
+    async function getNoOfBlogs() {
+        try {
+            const count = await axios.get(proxy + "/api/blogs/count");
+            return count;
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <>
             <ToastContainer
@@ -121,7 +128,12 @@ export default function App() {
                 <Routes key={location.pathname} location={location}>
                     <Route
                         path="/"
-                        element={<Home handleGetBlogs={getBlogs} />}
+                        element={
+                            <Home
+                                handleGetBlogs={getBlogs}
+                                totalBlogs={getNoOfBlogs}
+                            />
+                        }
                     />
                     <Route
                         path="/login"
@@ -143,6 +155,7 @@ export default function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Suspense>
+            <Footer />
         </>
     );
 }

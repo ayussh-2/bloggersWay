@@ -97,7 +97,7 @@ export default function CreateBlog({
                     <ScaleLoader color="#000" />
                 </motion.div>
             )}
-            <div className="container relative mx-auto px-20 mt-10 p-5 font-poppins">
+            <div className="container relative mx-auto p-20 font-poppins">
                 <h1 className="text-2xl font-bold mb-5">Create New Blog</h1>
                 <form className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

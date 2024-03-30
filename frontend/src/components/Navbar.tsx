@@ -1,9 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 export default function Navbar() {
+    const [user, setUser] = useState({ name: "" });
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user") as string);
-        if (user !== null || user) {
+        if (user !== null) {
+            setUser(user);
+            // console.log(user);
+        } else {
+            setUser({ ...user, name: "Friend" });
         }
     }, []);
     return (
@@ -19,6 +24,22 @@ export default function Navbar() {
             <div className="navbar-end"></div>
 
             <div className="navbar-end">
+                <button className="btn btn-ghost btn-circle">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                    </svg>
+                </button>
                 <Link to={"/login"}>
                     <button className="btn btn-ghost btn-circle">
                         <svg
@@ -31,7 +52,6 @@ export default function Navbar() {
                         </svg>
                     </button>
                 </Link>
-
                 <div className="drawer w-0 drawer-end z-20">
                     <label
                         tabIndex={0}
@@ -68,7 +88,7 @@ export default function Navbar() {
 
                         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content font-poppins">
                             <h2 className="font-lemonMed text-center text-xl my-10">
-                                Welcome User
+                                Welcome, {user.name}
                             </h2>
                             <div className="mt-5">
                                 <h3 className="font-lemonBld text-sm mb-3">
@@ -80,6 +100,11 @@ export default function Navbar() {
                                             Write a travel Blog?
                                         </span>
                                     </Link>
+                                </li>
+                                <li>
+                                    <span className="capitalize text-lg">
+                                        My Blogs
+                                    </span>
                                 </li>
                                 <li>
                                     <span className="capitalize text-lg">
