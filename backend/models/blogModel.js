@@ -44,7 +44,9 @@ blogSchema.statics.createBlog = async function (
     }
 };
 blogSchema.statics.getBlogs = async function (page, blogPerPage) {
-    const blogs = this.find();
+    const blogs = this.find()
+        .skip((page - 1) * blogPerPage)
+        .limit(blogPerPage);
 
     return blogs;
 };

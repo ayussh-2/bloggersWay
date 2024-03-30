@@ -33,7 +33,7 @@ const createBlog = async (req, res) => {
 };
 
 const getAllBlogs = async (req, res) => {
-    const { page, blogPerPage } = req.body;
+    const { page, blogPerPage } = req.query;
     try {
         const blogs = await blog.getBlogs(page, blogPerPage);
         res.status(200).json(blogs);
