@@ -25,8 +25,9 @@ const createBlog = async (req, res) => {
             about,
             stories
         );
-        res.status(200).json({ msg: "Blog created successfully" });
+        res.status(200).json({ msg: "Blog created successfully", author, uid });
     } catch (err) {
+        res.status(400).json({ msg: err });
         console.log(err);
     }
 };

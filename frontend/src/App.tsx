@@ -9,6 +9,9 @@ import Signup from "./pages/Signup";
 import CreateBlog from "./pages/CreateBlog";
 import { storage } from "./config/firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ToastContainer, toast, Slide } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 export default function App() {
     const location = useLocation();
     const proxy: String = "http://localhost:4000";
@@ -22,40 +25,24 @@ export default function App() {
         password: String;
     }) {
         if (user.name === "" || user.email === "" || user.password === "") {
-            setUserStatus({
-                ...userStatus,
-                type: "error",
-                message: "Please fill all the fields",
-            });
+            toast.info("Please fill up all the fields");
             return;
         }
         axios
             .post(proxy + "/api/users/signup", user)
             .then(function (res) {
                 console.log(res);
-                setUserStatus({
-                    ...userStatus,
-                    type: "success",
-                    message: "Registration Succesfull",
-                });
+                toast.success("Account Created!");
             })
             .catch(function (err) {
                 // console.error(err.response.data.msg);
-                setUserStatus({
-                    ...userStatus,
-                    type: "error",
-                    message: err.response.data.msg,
-                });
+                toast.error(err.response.data.msg);
             });
     }
 
     function loginUser(user: { email: string; password: String }) {
         if (user.email === "" || user.password === "") {
-            setUserStatus({
-                ...userStatus,
-                type: "error",
-                message: "Please fill all the fields",
-            });
+            toast.info("Please fill all the fields");
             return;
         }
         axios
@@ -69,19 +56,11 @@ export default function App() {
                         mail: res.data.user.email,
                     })
                 );
-                setUserStatus({
-                    ...userStatus,
-                    type: "success",
-                    message: "Login Succesfull",
-                });
+
                 window.location.href = "/";
             })
             .catch(function (err) {
-                setUserStatus({
-                    ...userStatus,
-                    type: "error",
-                    message: err.response.data.msg,
-                });
+                toast.error(err.response.data.msg);
             });
     }
 
@@ -115,11 +94,34 @@ export default function App() {
 
         return url;
     }
+
+    async function getBlogs(pagination: { page: number; blogPerPage: number }) {
+        const response = await axios.get(proxy + "/api/blogs/all", {
+            params: pagination,
+        });
+        return response.data;
+    }
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Slide}
+            />
             <Suspense fallback={<Fallback />}>
                 <Routes key={location.pathname} location={location}>
-                    <Route path="/" element={<Home />} />
+                    <Route
+                        path="/"
+                        element={<Home handleGetBlogs={getBlogs} />}
+                    />
                     <Route
                         path="/login"
                         element={<Login handleLogin={loginUser} />}

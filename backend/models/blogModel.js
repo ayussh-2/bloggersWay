@@ -25,24 +25,27 @@ blogSchema.statics.createBlog = async function (
     about,
     stories
 ) {
-    const blogPost = await this.create({
-        uid,
-        author,
-        title,
-        locations,
-        cover,
-        multiImage,
-        hotspots,
-        route,
-        about,
-        stories,
-    });
-    return blogPost;
+    try {
+        const blogPost = await this.create({
+            uid,
+            author,
+            title,
+            locations,
+            cover,
+            multiImage,
+            hotspots,
+            route,
+            about,
+            stories,
+        });
+        return blogPost;
+    } catch (err) {
+        return err;
+    }
 };
 blogSchema.statics.getBlogs = async function (page, blogPerPage) {
-    const blogs = this.find()
-        .skip(blogPerPage * page)
-        .limit(blogPerPage);
+    const blogs = this.find();
+
     return blogs;
 };
 
