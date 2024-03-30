@@ -97,7 +97,12 @@ export default function CreateBlog({
                     <ScaleLoader color="#000" />
                 </motion.div>
             )}
-            <div className="container relative mx-auto p-20 font-poppins">
+            <motion.div
+                initial={{ opacity: 0, y: "100vh" }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
+                className="container relative mx-auto p-20 font-poppins"
+            >
                 <h1 className="text-2xl font-bold mb-5">Create New Blog</h1>
                 <form className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -263,7 +268,7 @@ export default function CreateBlog({
                         </button>
                     </div>
                 </form>
-            </div>
+            </motion.div>
         </>
     );
 }

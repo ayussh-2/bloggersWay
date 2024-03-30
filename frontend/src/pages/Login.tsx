@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 type Props = {
     handleLogin: (user: { email: string; password: string }) => void;
 };
@@ -10,7 +11,12 @@ export default function Login({ handleLogin }: Props) {
     });
 
     return (
-        <div className="flex items-center">
+        <motion.div
+            initial={{ opacity: 0, y: "100vh" }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
+            className="flex items-center"
+        >
             <div className="w-1/2">
                 <div className="grid h-screen place-items-center font-poppins">
                     <div className="flex flex-col gap-5">
@@ -82,6 +88,6 @@ export default function Login({ handleLogin }: Props) {
                     />
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

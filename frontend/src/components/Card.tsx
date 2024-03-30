@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 function Card({
     cover,
     title,
@@ -19,7 +20,12 @@ function Card({
         }
     }
     return (
-        <div className="card group cursor-pointer w-96 bg-base-100 shadow-lg hover:shadow-2xl duration-500 active:scale-95 font-noto">
+        <motion.div
+            initial={{ scale: 0.7 }}
+            whileInView={{ scale: 1 }}
+            transition={{ duration: 0.5, ease: [0.42, 0, 0.58, 1] }}
+            className="card group cursor-pointer w-96 bg-base-100 shadow-lg hover:shadow-2xl duration-500 active:scale-110 font-noto"
+        >
             <figure className="overflow-hidden w-96 h-60">
                 <img
                     src={cover}
@@ -36,7 +42,7 @@ function Card({
                     <div className="badge badge-outline">{author}</div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

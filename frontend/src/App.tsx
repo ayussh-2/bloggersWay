@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
+import { AnimatePresence } from "framer-motion";
 import Fallback from "./pages/Fallback";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -129,37 +130,39 @@ export default function App() {
                 }}
             />
             <Navbar />
-            <Suspense fallback={<Fallback />}>
-                <Routes key={location.pathname} location={location}>
-                    <Route
-                        path="/"
-                        element={
-                            <Home
-                                handleGetBlogs={getBlogs}
-                                totalBlogs={getNoOfBlogs}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={<Login handleLogin={loginUser} />}
-                    />
-                    <Route
-                        path="/signup"
-                        element={<Signup handleSignup={signupUser} />}
-                    />
-                    <Route
-                        path="/create"
-                        element={
-                            <CreateBlog
-                                handleCreateBlog={createBlog}
-                                handleUploadImage={uploadImage}
-                            />
-                        }
-                    />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </Suspense>
+            <AnimatePresence mode="wait">
+                <Suspense fallback={<Fallback />}>
+                    <Routes key={location.pathname} location={location}>
+                        <Route
+                            path="/"
+                            element={
+                                <Home
+                                    handleGetBlogs={getBlogs}
+                                    totalBlogs={getNoOfBlogs}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/login"
+                            element={<Login handleLogin={loginUser} />}
+                        />
+                        <Route
+                            path="/signup"
+                            element={<Signup handleSignup={signupUser} />}
+                        />
+                        <Route
+                            path="/create"
+                            element={
+                                <CreateBlog
+                                    handleCreateBlog={createBlog}
+                                    handleUploadImage={uploadImage}
+                                />
+                            }
+                        />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </Suspense>
+            </AnimatePresence>
             <Footer />
         </>
     );

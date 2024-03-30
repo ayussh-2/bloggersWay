@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
+import { motion } from "framer-motion";
 type Props = {
     handleGetBlogs: (details: { page: number; blogPerPage: number }) => void;
     totalBlogs: () => void;
@@ -73,7 +74,11 @@ export default function Home({ handleGetBlogs, totalBlogs }: Props) {
         }
     }
     return (
-        <div>
+        <motion.div
+            initial={{ opacity: 0, y: "100vh" }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
+        >
             <div className="mt-10 relative">
                 <div className="overflow-hidden h-[40rem] w-auto px-20">
                     <img
@@ -84,10 +89,29 @@ export default function Home({ handleGetBlogs, totalBlogs }: Props) {
                 </div>
                 <div className="absolute z-10 top-0 bottom-0 flex items-center justify-center w-full text-white">
                     <div>
-                        <h1 className="capitalize font-lemonBld text-5xl">
-                            Start Travelling!
-                        </h1>
-                        <div className="flex items-center justify-between">
+                        <motion.div
+                            initial={{ opacity: 0, x: "100vh" }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                                duration: 1,
+                                delay: 0.2,
+                                ease: [0.2, 1, 0.2, 1],
+                            }}
+                        >
+                            <h1 className="capitalize font-lemonBld text-5xl">
+                                Start Travelling!
+                            </h1>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0, x: "-20vh" }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                                duration: 1,
+                                delay: 0.3,
+                                ease: [0.2, 1, 0.2, 1],
+                            }}
+                            className="flex items-center justify-between"
+                        >
                             {" "}
                             <p className="font-poppins text-lg mt-5 w-96">
                                 Planning your next journey? Get to the right
@@ -99,7 +123,7 @@ export default function Home({ handleGetBlogs, totalBlogs }: Props) {
                             >
                                 Explore!
                             </button>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
@@ -129,6 +153,6 @@ export default function Home({ handleGetBlogs, totalBlogs }: Props) {
                     {renderPageButtons()}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 export default function Navbar() {
     const [user, setUser] = useState({ name: "" });
     useEffect(() => {
@@ -15,7 +16,12 @@ export default function Navbar() {
         document.getElementById("drawer").checked = false;
     };
     return (
-        <div className="navbar bg-base-100 md:px-36">
+        <motion.div
+            initial={{ opacity: 0, y: "-100vh" }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.2, 1, 0.2, 1] }}
+            className="navbar bg-base-100 md:px-36"
+        >
             <div className="navbar-start">
                 <Link to={"/"}>
                     <p className=" text-xl font-lemonBld font-bold py-5 mx-5">
@@ -134,6 +140,6 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
