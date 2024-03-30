@@ -11,6 +11,9 @@ export default function Navbar() {
             setUser({ ...user, name: "Friend" });
         }
     }, []);
+    const handleCloseSidebar = () => {
+        document.getElementById("drawer").checked = false;
+    };
     return (
         <div className="navbar bg-base-100 md:px-36">
             <div className="navbar-start">
@@ -94,19 +97,19 @@ export default function Navbar() {
                                 <h3 className="font-lemonBld text-sm mb-3">
                                     Blog
                                 </h3>
-                                <li>
+                                <li onClick={handleCloseSidebar}>
                                     <Link to={"/create"}>
                                         <span className="capitalize text-lg">
                                             Write a travel Blog?
                                         </span>
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={handleCloseSidebar}>
                                     <span className="capitalize text-lg">
                                         My Blogs
                                     </span>
                                 </li>
-                                <li>
+                                <li onClick={handleCloseSidebar}>
                                     <span className="capitalize text-lg">
                                         My favorites
                                     </span>
@@ -116,12 +119,12 @@ export default function Navbar() {
                                 <h3 className="font-lemonBld text-sm mb-3">
                                     BloggersWay
                                 </h3>
-                                <li>
+                                <li onClick={handleCloseSidebar}>
                                     <span className="capitalize text-lg">
                                         Who are we?
                                     </span>
                                 </li>
-                                <li>
+                                <li onClick={handleCloseSidebar}>
                                     <span className="capitalize text-lg">
                                         Having trouble?
                                     </span>

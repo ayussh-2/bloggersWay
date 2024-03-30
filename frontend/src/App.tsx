@@ -122,6 +122,11 @@ export default function App() {
                 pauseOnHover
                 theme="colored"
                 transition={Slide}
+                bodyStyle={{
+                    fontFamily: "Poppins",
+                    fontSize: "0.8rem",
+                    textTransform: "capitalize",
+                }}
             />
             <Navbar />
             <Suspense fallback={<Fallback />}>
