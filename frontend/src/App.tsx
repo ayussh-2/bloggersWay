@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Fallback from "./pages/Fallback";
 import Home from "./pages/Home";
@@ -130,9 +130,14 @@ export default function App() {
             console.log(err);
         }
     }
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    function handleLoginState(status: boolean) {
+        setIsLoggedIn(status);
+    }
     function logout() {
         localStorage.removeItem("user");
         toast.success("Logged Out Successfully!");
+        handleLoginState(false);
     }
     return (
         <>
@@ -154,7 +159,11 @@ export default function App() {
                     textTransform: "capitalize",
                 }}
             />
-            <Navbar handleLogout={logout} />
+            <Navbar
+                handleLogout={logout}
+                isLoggedIn={isLoggedIn}
+                handleLoginState={handleLoginState}
+            />
             <AnimatePresence mode="wait">
                 <Suspense fallback={<Fallback />}>
                     <Routes key={location.pathname} location={location}>

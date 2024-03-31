@@ -10,6 +10,7 @@ export default function TravelBlog({ findBlogById }: any) {
         const bid = params.get("bid");
         // console.log(bid);
         fetchBlog(bid);
+        scrollToTop();
     }, []);
     async function fetchBlog(id: any) {
         try {
@@ -30,7 +31,12 @@ export default function TravelBlog({ findBlogById }: any) {
     function isEmpty(obj: object) {
         return Object.keys(obj).length === 0;
     }
-
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }
     return (
         <>
             {loading ? (
@@ -187,19 +193,19 @@ export default function TravelBlog({ findBlogById }: any) {
                         className="flex items-center justify-center gap-10 mb-40"
                         id="saveCreateLike"
                     >
-                        <button className="flex flex-col gap-5 active:scale-95 duration-150">
+                        <button className="flex flex-col items-center gap-5 active:scale-95 duration-150">
                             <i className="fa-regular fa-thumbs-up text-6xl"></i>
                             <span className="font-poppins font-bold text-3xl">
                                 Like this?
                             </span>
                         </button>
-                        <button className="flex flex-col gap-5 active:scale-95 duration-150">
+                        <button className="flex flex-col items-center gap-5 active:scale-95 duration-150">
                             <i className="fa-regular fa-bookmark text-6xl"></i>
                             <span className="font-poppins font-bold text-3xl">
                                 Save this!
                             </span>
                         </button>
-                        <button className="flex flex-col gap-5 active:scale-95 duration-150">
+                        <button className="flex flex-col items-center gap-5 active:scale-95 duration-150">
                             <i className="fa-solid fa-pencil text-6xl"></i>
                             <span className="font-poppins font-bold text-3xl">
                                 Write one?

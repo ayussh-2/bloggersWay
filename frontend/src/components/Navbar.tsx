@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-export default function Navbar({ handleLogout }: any) {
+export default function Navbar({
+    handleLogout,
+    handleLoginState,
+    isLoggedIn,
+}: any) {
     const [user, setUser] = useState({ name: "" });
+
     useEffect(() => {
         const userObj = JSON.parse(localStorage.getItem("user") as string);
         if (userObj !== null) {
             setUser(userObj);
+            handleLoginState(true);
         } else {
             setUser({ ...user, name: "Friend" });
         }
     }, []);
+
     const handleCloseSidebar = () => {
         document.getElementById("drawer").checked = false;
     };
@@ -48,7 +55,14 @@ export default function Navbar({ handleLogout }: any) {
                         />
                     </svg>
                 </button>
-                {user.name === "Friend" ? (
+                {isLoggedIn ? (
+                    <button
+                        className="btn btn-ghost btn-circle"
+                        onClick={() => handleLogout()}
+                    >
+                        <i className="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                ) : (
                     <Link to={"/login"}>
                         <button className="btn btn-ghost btn-circle">
                             <svg
@@ -61,13 +75,6 @@ export default function Navbar({ handleLogout }: any) {
                             </svg>
                         </button>
                     </Link>
-                ) : (
-                    <button
-                        className="btn btn-ghost btn-circle"
-                        onClick={() => handleLogout()}
-                    >
-                        <i className="fa-solid fa-right-from-bracket"></i>
-                    </button>
                 )}
 
                 <div className="drawer w-0 drawer-end z-20">

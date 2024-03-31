@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 export default function CreateBlog({
     handleCreateBlog,
     handleUploadImage,
@@ -24,13 +25,14 @@ export default function CreateBlog({
         cover: "",
         multiImage: Array,
     });
-
+    const navigate = useNavigate();
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         if (user.uid) {
             setBlog({ ...blog, uid: user.uid, author: user.name });
         } else {
-            window.location.href = "/login";
+            // toast.info("Login first");
+            navigate("/login");
         }
     }, []);
 
