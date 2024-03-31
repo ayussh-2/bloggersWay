@@ -4,8 +4,13 @@ import { motion } from "framer-motion";
 type Props = {
     handleGetBlogs: (details: { page: number; blogPerPage: number }) => void;
     totalBlogs: () => void;
+    handleChangeBlog: () => void;
 };
-export default function Home({ handleGetBlogs, totalBlogs }: Props) {
+export default function Home({
+    handleGetBlogs,
+    totalBlogs,
+    handleChangeBlog,
+}: Props) {
     const [blogs, setBlogs] = useState([]);
     const [noOfPages, setNoOfPages] = useState(0);
     const [selectedPage, setSelectedPage] = useState(1);
@@ -73,6 +78,7 @@ export default function Home({ handleGetBlogs, totalBlogs }: Props) {
             console.warn(`Section with id '${sectionId}' not found.`);
         }
     }
+
     return (
         <motion.div
             initial={{ opacity: 0, y: "100vh" }}
@@ -145,6 +151,8 @@ export default function Home({ handleGetBlogs, totalBlogs }: Props) {
                                     info={blog.stories}
                                     author={blog.author}
                                     key={blog._id}
+                                    blogId={blog._id}
+                                    handleChangeBlog={handleChangeBlog}
                                 />
                             )
                         )}

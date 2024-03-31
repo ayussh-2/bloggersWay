@@ -1,9 +1,10 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, redirect } from "react-router-dom";
 import axios from "axios";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Fallback from "./pages/Fallback";
 import Home from "./pages/Home";
+import TravelBlog from "./pages/TravelBlog";
 import Login from "./pages/Login";
 import NotFound from "./pages/Notfound";
 import Signup from "./pages/Signup";
@@ -109,6 +110,10 @@ export default function App() {
             console.log(err);
         }
     }
+    function changeBlog(blogId: string) {
+        // console.log(blog);
+        window.location.href = `./travel?bid=${blogId}`;
+    }
     return (
         <>
             <ToastContainer
@@ -139,6 +144,7 @@ export default function App() {
                                 <Home
                                     handleGetBlogs={getBlogs}
                                     totalBlogs={getNoOfBlogs}
+                                    handleChangeBlog={changeBlog}
                                 />
                             }
                         />
@@ -159,6 +165,7 @@ export default function App() {
                                 />
                             }
                         />
+                        <Route path="/travel" element={<TravelBlog />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>

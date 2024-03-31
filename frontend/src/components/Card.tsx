@@ -4,11 +4,15 @@ function Card({
     title,
     info,
     author,
+    handleChangeBlog,
+    blogId,
 }: {
     cover: string;
     title: string;
     info: string;
     author: string;
+    handleChangeBlog: (bid: string) => void;
+    blogId: string;
 }) {
     function limitWords(para: string, wordCount: number) {
         let paragraph = para.trim();
@@ -21,10 +25,11 @@ function Card({
     }
     return (
         <motion.div
-            initial={{ scale: 0.7 }}
+            initial={{ scale: 0.85 }}
             whileInView={{ scale: 1 }}
             transition={{ duration: 0.5, ease: [0.42, 0, 0.58, 1] }}
             className="card group cursor-pointer w-96 bg-base-100 shadow-lg hover:shadow-2xl duration-500 active:scale-110 font-noto"
+            onClick={() => handleChangeBlog(blogId)}
         >
             <figure className="overflow-hidden w-96 h-60">
                 <img
