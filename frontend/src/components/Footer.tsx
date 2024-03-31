@@ -1,14 +1,15 @@
+import { Link } from "react-router-dom";
 export default function Footer() {
     return (
         <>
             <footer className="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
                 <aside className="items-center grid-flow-col">
-                    <p>
+                    <Link to="/">
                         <p className=" text-xl font-lemonBld font-bold py-5 mx-5">
                             <span className="font-extrabold text-4xl">B</span>
                             loggers Way
                         </p>
-                    </p>
+                    </Link>
                 </aside>
                 <nav className="md:place-self-center md:justify-self-end">
                     <div className="grid grid-flow-col gap-4">

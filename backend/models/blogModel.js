@@ -11,6 +11,9 @@ const blogSchema = new Schema({
     route: { type: String, requird: true },
     about: { type: String, requird: true },
     stories: { type: String },
+    cityAndCountry: { type: String },
+    weather: { type: String },
+    avgTemp: { type: String },
 });
 
 blogSchema.statics.createBlog = async function (
@@ -23,7 +26,10 @@ blogSchema.statics.createBlog = async function (
     hotspots,
     route,
     about,
-    stories
+    stories,
+    cityAndCountry,
+    weather,
+    avgTemp
 ) {
     try {
         const blogPost = await this.create({
@@ -37,6 +43,9 @@ blogSchema.statics.createBlog = async function (
             route,
             about,
             stories,
+            cityAndCountry,
+            weather,
+            avgTemp,
         });
         return blogPost;
     } catch (err) {

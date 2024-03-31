@@ -75,6 +75,9 @@ export default function App() {
         stories: string;
         cover: null;
         multiImage: null;
+        weather: string;
+        avgTemp: string;
+        cityAndCountry: string;
     }) {
         console.log(blog);
         axios

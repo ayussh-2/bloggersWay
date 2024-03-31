@@ -13,6 +13,9 @@ export default function CreateBlog({
         uid: "",
         author: "",
         title: "",
+        cityAndCountry: "",
+        weather: "",
+        avgTemp: "",
         locations: "",
         hotspots: "",
         route: "",
@@ -35,7 +38,12 @@ export default function CreateBlog({
     const [multiImage, setMultiImage] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    async function uploadImages(images: any) {
+    async function uploadImages(images: any[]) {
+        if (images.length !== 3) {
+            toast.error("Exactly three images are required.");
+            return;
+        }
+
         const uploadedImages = await Promise.all(
             images.map(async (img: any) => {
                 return await handleUploadImage(img, "multiImage");
@@ -45,41 +53,65 @@ export default function CreateBlog({
     }
     async function handleSubmit(e: any) {
         e.preventDefault();
-        if (
-            blog.title === "" ||
-            blog.locations === "" ||
-            blog.hotspots === "" ||
-            blog.route === "" ||
-            blog.about === "" ||
-            blog.stories === ""
-        ) {
-            toast.info("Please fill all the fields");
-            return;
-        }
         setLoading(true);
-        const coverImgUrl = await handleUploadImage(coverImage, "cover");
-        const multiImgUrls = await uploadImages(Array.from(multiImage || []));
+        scrollToTop();
+        try {
+            if (
+                blog.title === "" ||
+                blog.locations === "" ||
+                blog.hotspots === "" ||
+                blog.route === "" ||
+                blog.about === "" ||
+                blog.stories === "" ||
+                blog.weather === "" ||
+                blog.avgTemp === "" ||
+                blog.cityAndCountry === ""
+            ) {
+                toast.info("Please fill all the fields");
+                return;
+            }
 
-        handleCreateBlog({
-            ...blog,
-            cover: coverImgUrl,
-            multiImage: multiImgUrls,
-        });
-        setBlog({
-            ...blog,
-            title: "",
-            locations: "",
-            hotspots: "",
-            route: "",
-            about: "",
-            stories: "",
-            cover: "",
-            multiImage: Array,
-        });
-        setLoading(false);
-        toast.success("Blog Uploaded!");
+            const multiImgUrls = await uploadImages(
+                Array.from(multiImage || [])
+            );
+            const coverImgUrl =
+                multiImgUrls.length !== 0
+                    ? await handleUploadImage(coverImage, "cover")
+                    : "";
+
+            if (coverImage !== "") {
+                handleCreateBlog({
+                    ...blog,
+                    cover: coverImgUrl,
+                    multiImage: multiImgUrls,
+                });
+            }
+            setBlog({
+                ...blog,
+                title: "",
+                cityAndCountry: "",
+                locations: "",
+                hotspots: "",
+                weather: "",
+                avgTemp: "",
+                route: "",
+                about: "",
+                stories: "",
+                cover: "",
+                multiImage: Array,
+            });
+            toast.success("Blog Uploaded!");
+        } catch (error) {
+        } finally {
+            setLoading(false);
+        }
     }
-
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }
     return (
         <>
             {loading && (
@@ -126,6 +158,69 @@ export default function CreateBlog({
                         </div>
                         <div>
                             <label
+                                htmlFor="title"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                City,Country
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                placeholder="Hawaii,USA"
+                                className="input-med "
+                                value={blog.cityAndCountry}
+                                onChange={(e) =>
+                                    setBlog({
+                                        ...blog,
+                                        cityAndCountry: e.target.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="title"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Weather
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                placeholder="Scorching Summers"
+                                className="input-med "
+                                value={blog.weather}
+                                onChange={(e) =>
+                                    setBlog({
+                                        ...blog,
+                                        weather: e.target.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="title"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Average Temperature in &deg;
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                placeholder="37"
+                                className="input-med "
+                                value={blog.avgTemp}
+                                onChange={(e) =>
+                                    setBlog({
+                                        ...blog,
+                                        avgTemp: e.target.value,
+                                    })
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label
                                 htmlFor="locations"
                                 className="block text-sm font-medium text-gray-700"
                             >
@@ -145,7 +240,9 @@ export default function CreateBlog({
                                 }
                             />
                         </div>
-                        <div>
+                    </div>
+                    <div>
+                        <div className="">
                             <label
                                 htmlFor="hotspots"
                                 className="block text-sm font-medium text-gray-700"

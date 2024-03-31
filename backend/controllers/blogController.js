@@ -11,6 +11,9 @@ const createBlog = async (req, res) => {
         route,
         about,
         stories,
+        cityAndCountry,
+        weather,
+        avgTemp,
     } = req.body;
     try {
         const data = await blog.createBlog(
@@ -23,7 +26,10 @@ const createBlog = async (req, res) => {
             hotspots,
             route,
             about,
-            stories
+            stories,
+            cityAndCountry,
+            weather,
+            avgTemp
         );
         res.status(200).json({ msg: "Blog created successfully", author, uid });
     } catch (err) {

@@ -69,18 +69,20 @@ export default function TravelBlog({ findBlogById }: any) {
                             }}
                             className="absolute -bottom-24 flex items-center justify-center w-full"
                         >
-                            <div className="bg-white h-40 gap-x-10 gap-y-5 rounded-md font-poppins px-10 py-5 grid grid-cols-2 drop-shadow-xl">
+                            <div className="bg-white h-40 gap-x-10 gap-y-5 rounded-md font-poppins px-10 py-5 grid grid-cols-2 drop-shadow-xl capitalize">
                                 <div className="flex items-center gap-5">
                                     <i className="fa-solid fa-cloud text-3xl"></i>
-                                    <p>Windy</p>
+                                    <p>{blog.weather || "Windy"}</p>
                                 </div>
                                 <div className="flex items-center gap-5">
                                     <i className="fa-solid fa-temperature-half text-3xl"></i>
-                                    <p>25&deg;</p>
+                                    <p>{blog.avgTemp || "27"}&deg;</p>
                                 </div>
                                 <div className="flex items-center gap-5">
                                     <i className="fa-solid fa-earth-asia text-3xl"></i>
-                                    <p>Kolkata, India</p>
+                                    <p>
+                                        {blog.cityAndCountry || "Kolkata,India"}
+                                    </p>
                                 </div>
                                 <div className="flex items-center gap-5">
                                     <i className="fa-solid fa-at text-3xl"></i>
