@@ -69,7 +69,8 @@ blogSchema.statics.getBlogById = async function (id) {
         return blog;
     } catch (err) {
         console.error(err);
-        throw err;
+        return {};
+        // throw err;
     }
 };
 

@@ -114,6 +114,16 @@ export default function App() {
         // console.log(blog);
         window.location.href = `./travel?bid=${blogId}`;
     }
+    async function getBlogById(bid: string) {
+        try {
+            const result = await axios.get(
+                proxy + `/api/blogs/getBlogById?bid=${bid}`
+            );
+            return result.data.blog;
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <>
             <ToastContainer
@@ -165,7 +175,10 @@ export default function App() {
                                 />
                             }
                         />
-                        <Route path="/travel" element={<TravelBlog />} />
+                        <Route
+                            path="/travel"
+                            element={<TravelBlog findBlogById={getBlogById} />}
+                        />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>
