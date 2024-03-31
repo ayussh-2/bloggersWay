@@ -342,7 +342,7 @@ export default function CreateBlog({
                                 htmlFor="multiImage"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                More images upto 4 images
+                                More images upto 3 images
                             </label>
                             <input
                                 type="file"

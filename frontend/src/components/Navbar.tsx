@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-export default function Navbar() {
+export default function Navbar({ handleLogout }: any) {
     const [user, setUser] = useState({ name: "" });
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user") as string);
-        if (user !== null) {
-            setUser(user);
-            // console.log(user);
+        const userObj = JSON.parse(localStorage.getItem("user") as string);
+        if (userObj !== null) {
+            setUser(userObj);
         } else {
             setUser({ ...user, name: "Friend" });
         }
@@ -49,18 +48,28 @@ export default function Navbar() {
                         />
                     </svg>
                 </button>
-                <Link to={"/login"}>
-                    <button className="btn btn-ghost btn-circle">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="w-4 h-4 opacity-70"
-                        >
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                        </svg>
+                {user.name === "Friend" ? (
+                    <Link to={"/login"}>
+                        <button className="btn btn-ghost btn-circle">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 16 16"
+                                fill="currentColor"
+                                className="w-4 h-4 opacity-70"
+                            >
+                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                            </svg>
+                        </button>
+                    </Link>
+                ) : (
+                    <button
+                        className="btn btn-ghost btn-circle"
+                        onClick={() => handleLogout()}
+                    >
+                        <i className="fa-solid fa-right-from-bracket"></i>
                     </button>
-                </Link>
+                )}
+
                 <div className="drawer w-0 drawer-end z-20">
                     <label
                         tabIndex={0}
@@ -126,14 +135,18 @@ export default function Navbar() {
                                     BloggersWay
                                 </h3>
                                 <li onClick={handleCloseSidebar}>
-                                    <span className="capitalize text-lg">
-                                        Who are we?
-                                    </span>
+                                    <Link to={"/about"}>
+                                        <span className="capitalize text-lg">
+                                            Who are we?
+                                        </span>
+                                    </Link>
                                 </li>
                                 <li onClick={handleCloseSidebar}>
-                                    <span className="capitalize text-lg">
-                                        Having trouble?
-                                    </span>
+                                    <Link to={"/contact"}>
+                                        <span className="capitalize text-lg">
+                                            Having trouble?
+                                        </span>
+                                    </Link>
                                 </li>
                             </div>
                         </ul>

@@ -1,6 +1,6 @@
-import { Routes, Route, useLocation, redirect } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { AnimatePresence } from "framer-motion";
 import Fallback from "./pages/Fallback";
 import Home from "./pages/Home";
@@ -15,9 +15,12 @@ import { ToastContainer, toast, Slide } from "react-toastify";
 import Navbar from "./components/Navbar";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
+import AboutUs from "./pages/About";
+import Contact from "./pages/ContactUs";
 export default function App() {
     const location = useLocation();
     const proxy: String = "http://localhost:4000";
+    const navigate = useNavigate();
 
     function signupUser(user: {
         name: String;
@@ -57,7 +60,7 @@ export default function App() {
                     })
                 );
 
-                window.location.href = "/";
+                navigate("/");
             })
             .catch(function (err) {
                 toast.error(err.response.data.msg);
@@ -115,7 +118,7 @@ export default function App() {
     }
     function changeBlog(blogId: string) {
         // console.log(blog);
-        window.location.href = `./travel?bid=${blogId}`;
+        navigate(`./travel?bid=${blogId}`);
     }
     async function getBlogById(bid: string) {
         try {
@@ -126,6 +129,10 @@ export default function App() {
         } catch (err) {
             console.log(err);
         }
+    }
+    function logout() {
+        localStorage.removeItem("user");
+        toast.success("Logged Out Successfully!");
     }
     return (
         <>
@@ -147,7 +154,7 @@ export default function App() {
                     textTransform: "capitalize",
                 }}
             />
-            <Navbar />
+            <Navbar handleLogout={logout} />
             <AnimatePresence mode="wait">
                 <Suspense fallback={<Fallback />}>
                     <Routes key={location.pathname} location={location}>
@@ -178,6 +185,8 @@ export default function App() {
                                 />
                             }
                         />
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="/contact" element={<Contact />} />
                         <Route
                             path="/travel"
                             element={<TravelBlog findBlogById={getBlogById} />}

@@ -27,7 +27,7 @@ export default function Home({
             const count = countRes.data.count;
             console.log(count);
             if (count !== null) {
-                const pages = Math.round(count / pagination.blogPerPage);
+                const pages = Math.ceil(count / pagination.blogPerPage);
                 setNoOfPages(pages);
                 console.log(pages);
                 setSelectedPage(1);

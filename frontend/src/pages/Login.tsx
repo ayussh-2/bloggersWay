@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 type Props = {
     handleLogin: (user: { email: string; password: string }) => void;
@@ -9,6 +9,13 @@ export default function Login({ handleLogin }: Props) {
         email: "",
         password: "",
     });
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            navigate("/");
+            console.log("redirecting");
+        }
+    }, []);
 
     return (
         <motion.div
