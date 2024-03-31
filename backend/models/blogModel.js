@@ -60,4 +60,17 @@ blogSchema.statics.getCount = async function () {
     }
 };
 
+blogSchema.statics.getBlogById = async function (id) {
+    try {
+        const blog = await this.findById(id);
+        if (!blog) {
+            return {};
+        }
+        return blog;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 module.exports = mongoose.model("blog", blogSchema);

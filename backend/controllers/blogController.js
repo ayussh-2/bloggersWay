@@ -51,4 +51,15 @@ const returnCount = async (req, res) => {
     }
 };
 
-module.exports = { createBlog, getAllBlogs, returnCount };
+const blogFind = async (req, res) => {
+    const { bid } = req.query;
+
+    try {
+        const result = await blog.getBlogById(bid);
+        res.status(200).json({ blog: result });
+    } catch (err) {
+        res.status(400).json({ err: err.message });
+    }
+};
+
+module.exports = { createBlog, getAllBlogs, returnCount, blogFind };
