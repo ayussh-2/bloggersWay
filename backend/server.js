@@ -9,7 +9,7 @@ const blogPostRoutes = require("./routes/blogPost");
 app.use(express.json());
 app.use(
     cors({
-        origin: "http://example.com",
+        origin: "https://bloggers-way-api.vercel.app/",
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
