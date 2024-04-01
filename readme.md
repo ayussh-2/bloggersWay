@@ -76,7 +76,7 @@ AND THE REST
 npm run dev
 ```
 
-10. Open your browser and navigate to `http://localhost:3000` to view the application.
+10. Open your browser and navigate to `http://localhost:5173` to view the application.
 
 ## Features
 
