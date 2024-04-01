@@ -24,7 +24,7 @@ BloggersWay is a MERN (MongoDB, Express, React, Node.js) application designed to
 1. Clone the repository:
 
 ```
-git clone <repository_url>
+git clone https://github.com/ayussh-2/bloggersWay
 ```
 
 2. Navigate to the project directory:
