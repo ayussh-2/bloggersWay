@@ -7,7 +7,13 @@ const app = express();
 const userAuthRoutes = require("./routes/userAuth");
 const blogPostRoutes = require("./routes/blogPost");
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://example.com",
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    })
+);
 app.use("/api/users", userAuthRoutes);
 app.use("/api/blogs", blogPostRoutes);
 
