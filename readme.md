@@ -61,7 +61,7 @@ PORT=4000 OR ANY DESIRED
 7. Start the backend server:
 
 ```
-npm start
+node server
 ```
 
 8. BEFORE STARTING CREATE A .env FILE N RHE FRONTEND FOLDER AND ADD YOUR FIREBASE CONFIGS AS 
@@ -73,7 +73,7 @@ AND THE REST
 9. Start the frontend development server:
 
 ```
-npm start
+npm run dev
 ```
 
 10. Open your browser and navigate to `http://localhost:3000` to view the application.
