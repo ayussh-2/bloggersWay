@@ -19,7 +19,7 @@ import AboutUs from "./pages/About";
 import Contact from "./pages/ContactUs";
 export default function App() {
     const location = useLocation();
-    const proxy: String = "http://localhost:4000";
+    const proxy: String = import.meta.env.VITE_PROXY;
     const navigate = useNavigate();
 
     function signupUser(user: {
