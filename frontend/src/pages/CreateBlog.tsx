@@ -37,21 +37,20 @@ export default function CreateBlog({
     }, []);
 
     const [coverImage, setCoverImage] = useState<File | null>(null);
-    const [multiImage, setMultiImage] = useState<File | null>(null);
+    const [multiImage, setMultiImage] = useState<FileList | null>(null);
     const [loading, setLoading] = useState(false);
 
-    async function uploadImages(images: any[]) {
-        console.log(images);
-
+    async function uploadImages(images: File[]) {
         if (images.length !== 3) {
             toast.error("Exactly three images are required.");
             return;
         }
+        // console.log(images);
 
         const uploadedImages = await Promise.all(
             images.map(async (img: any) => {
-                // return await handleUploadImage(img, "multiImage");
-                console.log(img);
+                // console.log(img);
+                return await handleUploadImage(img, "multiImage");
             })
         );
         return uploadedImages;
@@ -73,13 +72,14 @@ export default function CreateBlog({
                 blog.cityAndCountry === ""
             ) {
                 toast.info("Please fill all the fields");
+                // console.log(multiImage);
                 return;
             }
 
             const multiImgUrls = await uploadImages(
-                multiImage !== null ? [multiImage] : []
+                Array.from(multiImage || [])
             );
-            console.log(multiImgUrls);
+            // console.log(multiImgUrls);
 
             let coverImgUrl = "";
             if (multiImgUrls && multiImgUrls.length !== 0) {
@@ -111,6 +111,7 @@ export default function CreateBlog({
                 toast.success("Blog Uploaded!");
             }
         } catch (error) {
+            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -354,7 +355,7 @@ export default function CreateBlog({
                                 htmlFor="multiImage"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                More images upto 3 images
+                                3 Images for Reference
                             </label>
                             <input
                                 type="file"
@@ -366,7 +367,7 @@ export default function CreateBlog({
                                 onChange={(e) => {
                                     const files = e.target.files;
                                     if (files && files.length > 0) {
-                                        setMultiImage(files[0]);
+                                        setMultiImage(files);
                                     }
                                 }}
                             />

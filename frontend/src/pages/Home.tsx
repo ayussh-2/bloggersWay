@@ -27,11 +27,11 @@ export default function Home({
             setBlogs(details);
             const countRes = await totalBlogs();
             const count = countRes.data.count;
-            console.log(count);
+            // console.log(count);
             if (count !== null) {
                 const pages = Math.ceil(count / pagination.blogPerPage);
                 setNoOfPages(pages);
-                console.log(pages);
+                // console.log(pages);
                 setSelectedPage(1);
             }
         }
@@ -43,7 +43,7 @@ export default function Home({
             try {
                 const details = await handleGetBlogs(pagination);
                 setBlogs(details);
-                console.log(selectedPage);
+                // console.log(selectedPage);
             } catch (err) {
                 console.log(err);
                 toast.error("Some error occured!");
@@ -138,7 +138,7 @@ export default function Home({
             <div className="p-20" id="explore">
                 <h1 className="text-3xl font-lemonBld mb-10">Explore!</h1>
                 <div className="grid grid-cols-3 gap-5 gap-y-10">
-                    {blogs &&
+                    {blogs ? (
                         blogs.map(
                             (blog: {
                                 cover: string;
@@ -157,7 +157,12 @@ export default function Home({
                                     handleChangeBlog={handleChangeBlog}
                                 />
                             )
-                        )}
+                        )
+                    ) : (
+                        <h1 className="text-center text-2xl font-lemonMed">
+                            No Blogs For Now
+                        </h1>
+                    )}
                 </div>
                 <div className="join flex items-center justify-center mt-20">
                     {renderPageButtons()}

@@ -23,21 +23,21 @@ export default function TravelBlog({ findBlogById }: any) {
         const bid = params.get("bid");
         // console.log(bid);
         fetchBlog(bid);
-        scrollToTop();
     }, []);
+
     async function fetchBlog(id: any) {
         try {
             const blogObject = await findBlogById(id);
             if (isEmpty(blogObject)) {
-                alert("No such movie found");
-                window.location.href = "/";
+                window.location.href = "/notfound";
             }
             setBlog(blogObject);
-            console.log("loaded");
+            // console.log("loaded");
         } catch (err) {
             console.log(err);
         } finally {
             setLoading(false);
+            scrollToTop();
         }
     }
 
