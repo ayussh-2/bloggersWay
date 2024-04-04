@@ -32,6 +32,7 @@ export default function App() {
             toast.info("Please fill up all the fields");
             return;
         }
+        scrollToTop();
         setLoading(true);
         axios
             .post(proxy + "/api/users/signup", user)
@@ -51,6 +52,7 @@ export default function App() {
             toast.info("Please fill all the fields");
             return;
         }
+        scrollToTop();
         setLoading(true);
         axios
             .post(proxy + "/api/users/login", user)
@@ -143,6 +145,12 @@ export default function App() {
         localStorage.removeItem("user");
         toast.success("Logged Out Successfully!");
         handleLoginState(false);
+    }
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
     }
     return (
         <>
