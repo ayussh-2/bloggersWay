@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 type Props = {
-    handleGetBlogs: (details: { page: number; blogPerPage: number }) => void;
-    totalBlogs: () => void;
-    handleChangeBlog: () => void;
+    handleGetBlogs: (details: { page: number; blogPerPage: number }) => any;
+    totalBlogs: () => any;
+    handleChangeBlog: (blogId: string) => void;
 };
 export default function Home({
     handleGetBlogs,
     totalBlogs,
     handleChangeBlog,
 }: Props) {
-    const [blogs, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState<any[]>([]);
+
     const [noOfPages, setNoOfPages] = useState(0);
     const [selectedPage, setSelectedPage] = useState(1);
 

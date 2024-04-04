@@ -4,7 +4,20 @@ import { motion } from "framer-motion";
 import { ScaleLoader } from "react-spinners";
 export default function TravelBlog({ findBlogById }: any) {
     const [params] = useSearchParams();
-    const [blog, setBlog] = useState({});
+    const [blog, setBlog] = useState({
+        cover: "",
+        weather: "",
+        avgTemp: "",
+        cityAndCountry: "",
+        author: "",
+        title: "",
+        about: "",
+        multiImage: [],
+        locations: "",
+        stories: "",
+        hotspots: "",
+        route: "",
+    });
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const bid = params.get("bid");

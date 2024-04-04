@@ -19,7 +19,12 @@ export default function Navbar({
     }, []);
 
     const handleCloseSidebar = () => {
-        document.getElementById("drawer").checked = false;
+        const drawer = document.getElementById(
+            "drawer"
+        ) as HTMLInputElement | null;
+        if (drawer) {
+            drawer.checked = false;
+        }
     };
     return (
         <motion.div
