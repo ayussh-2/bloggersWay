@@ -1,17 +1,23 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const NotFound: React.FC = () => {
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="text-center">
-                <h1 className="text-6xl font-bold text-gray-800">404</h1>
-                <p className="text-2xl text-gray-600">Page Not Found</p>
-                <p className="text-gray-500">
+        <div className="flex items-center justify-center h-screen px-5">
+            <div className="text-center flex items-center gap-5 flex-col">
+                <h1 className="text-6xl font-bold text-gray-800 font-lemonBld">
+                    404
+                </h1>
+                <p className="text-2xl text-gray-600 font-lemonMed">
+                    Page Not Found
+                </p>
+                <p className="text-gray-500 font-poppins">
                     Oops! The page you are looking for does not exist.
                 </p>
-                <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    Go Back
-                </button>
+                <Link to={"/"}>
+                    <button className="btn btn-info text-white font-poppins">
+                        Go Back
+                    </button>
+                </Link>
             </div>
         </div>
     );

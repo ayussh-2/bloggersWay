@@ -36,18 +36,20 @@ export default function CreateBlog({
         }
     }, []);
 
-    const [coverImage, setCoverImage] = useState(null);
-    const [multiImage, setMultiImage] = useState(null);
+    const [coverImage, setCoverImage] = useState<File | null>(null);
+    const [multiImage, setMultiImage] = useState<FileList | null>(null);
     const [loading, setLoading] = useState(false);
 
-    async function uploadImages(images: any[]) {
+    async function uploadImages(images: File[]) {
         if (images.length !== 3) {
             toast.error("Exactly three images are required.");
             return;
         }
+        // console.log(images);
 
         const uploadedImages = await Promise.all(
             images.map(async (img: any) => {
+                // console.log(img);
                 return await handleUploadImage(img, "multiImage");
             })
         );
@@ -70,40 +72,46 @@ export default function CreateBlog({
                 blog.cityAndCountry === ""
             ) {
                 toast.info("Please fill all the fields");
+                // console.log(multiImage);
                 return;
             }
 
             const multiImgUrls = await uploadImages(
                 Array.from(multiImage || [])
             );
-            const coverImgUrl =
-                multiImgUrls.length !== 0
-                    ? await handleUploadImage(coverImage, "cover")
-                    : "";
+            // console.log(multiImgUrls);
 
-            if (coverImage !== "") {
+            let coverImgUrl = "";
+            if (multiImgUrls && multiImgUrls.length !== 0) {
+                coverImgUrl = await handleUploadImage(coverImage, "cover");
+            } else {
+                coverImgUrl = "";
+            }
+
+            if (coverImgUrl !== "") {
                 handleCreateBlog({
                     ...blog,
                     cover: coverImgUrl,
                     multiImage: multiImgUrls,
                 });
+                setBlog({
+                    ...blog,
+                    title: "",
+                    cityAndCountry: "",
+                    locations: "",
+                    hotspots: "",
+                    weather: "",
+                    avgTemp: "",
+                    route: "",
+                    about: "",
+                    stories: "",
+                    cover: "",
+                    multiImage: Array,
+                });
+                toast.success("Blog Uploaded!");
             }
-            setBlog({
-                ...blog,
-                title: "",
-                cityAndCountry: "",
-                locations: "",
-                hotspots: "",
-                weather: "",
-                avgTemp: "",
-                route: "",
-                about: "",
-                stories: "",
-                cover: "",
-                multiImage: Array,
-            });
-            toast.success("Blog Uploaded!");
         } catch (error) {
+            console.error(error);
         } finally {
             setLoading(false);
         }
@@ -332,9 +340,12 @@ export default function CreateBlog({
                                 type="file"
                                 id="cover"
                                 className="file-input file-input-bordered w-full max-w-xs"
-                                onChange={(e) =>
-                                    setCoverImage(e.target.files[0])
-                                }
+                                onChange={(e) => {
+                                    const files = e.target.files;
+                                    if (files && files.length > 0) {
+                                        setCoverImage(files[0]);
+                                    }
+                                }}
                                 accept="image/*"
                                 max={1}
                             />
@@ -344,7 +355,7 @@ export default function CreateBlog({
                                 htmlFor="multiImage"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                More images upto 3 images
+                                3 Images for Reference
                             </label>
                             <input
                                 type="file"
@@ -353,7 +364,12 @@ export default function CreateBlog({
                                 accept="image/*"
                                 multiple
                                 max={4}
-                                onChange={(e) => setMultiImage(e.target.files)}
+                                onChange={(e) => {
+                                    const files = e.target.files;
+                                    if (files && files.length > 0) {
+                                        setMultiImage(files);
+                                    }
+                                }}
                             />
                         </div>
                     </div>
