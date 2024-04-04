@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Suspense, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Fallback from "./pages/Fallback";
 import Home from "./pages/Home";
 import TravelBlog from "./pages/TravelBlog";
@@ -17,11 +17,12 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/About";
 import Contact from "./pages/ContactUs";
+import { ScaleLoader } from "react-spinners";
 export default function App() {
     const location = useLocation();
     const proxy: String = import.meta.env.VITE_PROXY;
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(false);
     function signupUser(user: {
         name: String;
         email: string;
@@ -31,6 +32,7 @@ export default function App() {
             toast.info("Please fill up all the fields");
             return;
         }
+        setLoading(true);
         axios
             .post(proxy + "/api/users/signup", user)
             .then(function (res) {
@@ -40,7 +42,8 @@ export default function App() {
             .catch(function (err) {
                 // console.error(err.response.data.msg);
                 toast.error(err.response.data.msg);
-            });
+            })
+            .finally(() => setLoading(false));
     }
 
     function loginUser(user: { email: string; password: String }) {
@@ -48,6 +51,7 @@ export default function App() {
             toast.info("Please fill all the fields");
             return;
         }
+        setLoading(true);
         axios
             .post(proxy + "/api/users/login", user)
             .then(function (res) {
@@ -64,7 +68,8 @@ export default function App() {
             })
             .catch(function (err) {
                 toast.error(err.response.data.msg);
-            });
+            })
+            .finally(() => setLoading(false));
     }
 
     function createBlog(blog: {
@@ -159,6 +164,21 @@ export default function App() {
                     textTransform: "capitalize",
                 }}
             />
+            {loading && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    transition={{
+                        opacity: 1,
+                        duration: 0.7,
+                        ease: [0.4, 0, 0.2, 1],
+                    }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="backdrop-blur-md h-full w-full flex items-center justify-center z-10 absolute"
+                >
+                    <ScaleLoader color="#000" />
+                </motion.div>
+            )}
             <Navbar
                 handleLogout={logout}
                 isLoggedIn={isLoggedIn}
