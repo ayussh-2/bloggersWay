@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 function Contact() {
+    function submitForm(e: any) {
+        e.preventDefault();
+    }
     return (
         <motion.div
             initial={{ opacity: 0, y: "100vh" }}
@@ -48,7 +51,11 @@ function Contact() {
                             placeholder="Your Message"
                         ></textarea>
                     </div>
-                    <button type="submit" className="btn btn-outline">
+                    <button
+                        type="submit"
+                        onClick={(e) => submitForm(e)}
+                        className="btn btn-outline"
+                    >
                         Send Message
                     </button>
                 </form>

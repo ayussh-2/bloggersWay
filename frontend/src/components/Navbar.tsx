@@ -41,10 +41,9 @@ export default function Navbar({
                     </p>
                 </Link>
             </div>
-            <div className="navbar-end"></div>
 
             <div className="navbar-end">
-                <button className="btn btn-ghost btn-circle">
+                {/* <button className="btn btn-ghost btn-circle">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
@@ -59,7 +58,7 @@ export default function Navbar({
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                         />
                     </svg>
-                </button>
+                </button> */}
                 {isLoggedIn ? (
                     <button
                         className="btn btn-ghost btn-circle"
@@ -82,7 +81,7 @@ export default function Navbar({
                     </Link>
                 )}
 
-                <div className="drawer w-0 drawer-end z-20">
+                <div className="drawer md:w-0 w-16 drawer-end z-20">
                     <label
                         tabIndex={0}
                         role="button"

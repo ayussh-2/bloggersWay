@@ -28,9 +28,9 @@ export default function Signup({ handleSignup }: Props) {
             initial={{ opacity: 0, y: "100vh" }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
-            className="flex items-center"
+            className=" items-center"
         >
-            <div className="w-1/2">
+            <div className="md:w-1/2 hidden md:block">
                 <div className="overflow-hidden h-screen">
                     <img
                         src="https://images.pexels.com/photos/3214975/pexels-photo-3214975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -38,7 +38,7 @@ export default function Signup({ handleSignup }: Props) {
                     />
                 </div>
             </div>
-            <div className="w-1/2">
+            <div className="md:w-1/2 w-full px-5">
                 <div className="grid h-screen place-items-center font-poppins">
                     <div className="flex flex-col gap-5">
                         <h1 className="text-3xl text-center font-light mb-5">

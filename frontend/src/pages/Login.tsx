@@ -25,7 +25,7 @@ export default function Login({ handleLogin }: Props) {
             transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
             className="flex items-center"
         >
-            <div className="w-1/2">
+            <div className="md:w-1/2 px-5 md:px-0 w-full">
                 <div className="grid h-screen place-items-center font-poppins">
                     <div className="flex flex-col gap-5">
                         <h1 className="text-3xl text-center font-light mb-5">
@@ -88,7 +88,7 @@ export default function Login({ handleLogin }: Props) {
                     </div>
                 </div>
             </div>
-            <div className="w-1/2">
+            <div className="hidden md:block md:w-1/2">
                 <div className="overflow-hidden h-screen">
                     <img
                         src="https://images.pexels.com/photos/2884866/pexels-photo-2884866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"

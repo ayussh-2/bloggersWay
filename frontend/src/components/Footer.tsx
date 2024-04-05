@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 export default function Footer() {
     return (
         <>
-            <footer className="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+            <footer className="footer md:px-10 px-5 py-4 border-t bg-base-200 text-base-content border-base-300 flex items-center justify-between">
                 <aside className="items-center grid-flow-col">
                     <Link to="/">
-                        <p className=" text-xl font-lemonBld font-bold py-5 mx-5">
-                            <span className="font-extrabold text-4xl">B</span>
+                        <p className=" text-base font-lemonBld font-bold py-5 mx-5">
+                            <span className="font-extrabold text-3xl">B</span>
                             loggers Way
                         </p>
                     </Link>
                 </aside>
-                <nav className="md:place-self-center md:justify-self-end">
+                <nav className="md:place-self-center justify-self-end md:justify-self-end">
                     <div className="grid grid-flow-col gap-4">
                         <a>
                             <svg
@@ -52,8 +52,9 @@ export default function Footer() {
             <footer className="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300 flex items-center justify-center">
                 <a href="https://www.github.com/ayussh-2" target="_blank">
                     <p className="flex items-center justify-center font-poppins">
-                        Crafted with <span className="text-xl">🤯&nbsp;</span>{" "}
-                        by &nbsp;
+                        Crafted with{" "}
+                        <span className="text-xl">&nbsp;🤯&nbsp;</span> by
+                        &nbsp;
                         <span className="font-semibold">Ayush</span>
                     </p>
                 </a>
