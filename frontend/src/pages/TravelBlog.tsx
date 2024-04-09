@@ -61,8 +61,9 @@ export default function TravelBlog({ findBlogById }: any) {
                     initial={{ opacity: 0, y: "100vh" }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
+                    className="font-poppins"
                 >
-                    <div className="relative" id="top">
+                    <div className="relative mb-60 md:mb-0" id="top">
                         <motion.div
                             initial={{ opacity: 0, y: "-50vh" }}
                             animate={{ opacity: 1, y: 0 }}
@@ -86,9 +87,9 @@ export default function TravelBlog({ findBlogById }: any) {
                                 ease: [0.2, 1, 0.2, 1],
                                 delay: 0.5,
                             }}
-                            className="absolute -bottom-24 flex items-center justify-center w-full"
+                            className="absolute md:-bottom-24 -bottom-40 flex items-center justify-center w-full lg:-bottom-12 px-5"
                         >
-                            <div className="bg-white h-40 gap-x-10 gap-y-5 rounded-md font-poppins px-10 py-5 grid grid-cols-2 drop-shadow-xl capitalize">
+                            <div className="bg-white lg:h-40 h-auto gap-x-10 gap-y-5 rounded-md font-poppins lg:px-10 px-5 lg:py-5 py-8 grid lg:grid-cols-2 grid-cols-1 drop-shadow-xl capitalize">
                                 <div className="flex items-center gap-5">
                                     <i className="fa-solid fa-cloud text-3xl"></i>
                                     <p>{blog.weather || "Windy"}</p>
@@ -112,20 +113,20 @@ export default function TravelBlog({ findBlogById }: any) {
                     </div>
 
                     <div
-                        className="my-40 px-20 flex items-center justify-center"
+                        className="md:my-10 bottom- lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
                         id="aboutPlace"
                     >
-                        <div className="w-1/2 flex flex-col items-baseline">
-                            <h1 className="text-4xl font-lemonMed">
+                        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-baseline">
+                            <h1 className="text-2xl lg:text-4xl font-lemonMed md:font-lemonMed text-center lg:text-left">
                                 {blog.title}
                             </h1>
 
-                            <p className="w-96 text-lg text-gray-600 my-5 font-poppins">
+                            <p className="w-full lg:w-96 text-gray-600 my-5 font-poppins text-base lg:text-lg text-center lg:text-left">
                                 {blog.about}
                             </p>
                         </div>
-                        <div className="w-1/2">
-                            <div className="overflow-hidden h-[500px] w-full relative">
+                        <div className="w-full lg:w-1/2 mt-5 lg:mt-0">
+                            <div className="overflow-hidden h-72 lg:h-[500px] w-full relative">
                                 <img
                                     src={blog.multiImage[0]}
                                     alt=""
@@ -142,23 +143,23 @@ export default function TravelBlog({ findBlogById }: any) {
                             duration: 1,
                             ease: [0.2, 1, 0.2, 1],
                         }}
-                        className="px-20 flex items-center justify-center"
+                        className="px-5 lg:px-20 my-20 md:my-0 flex flex-col lg:flex-row items-center justify-center"
                         id="locations"
                     >
-                        <h1 className="flex items-center gap-5 text-center">
-                            <i className="fa-solid fa-map-location-dot text-5xl"></i>
-                            <span className="font-lato italic text-xl ">
+                        <h1 className="flex items-center gap-5 text-center lg:text-left">
+                            <i className="fa-solid fa-map-location-dot text-3xl lg:text-5xl"></i>
+                            <span className="font-lato italic text-base lg:text-xl">
                                 {blog.locations}
                             </span>
                         </h1>
                     </motion.div>
 
                     <div
-                        className="my-40 px-20 flex items-center justify-center"
+                        className="my-10 lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
                         id="stories"
                     >
-                        <div className="w-1/2">
-                            <div className="overflow-hidden h-[500px] w-full relative">
+                        <div className="w-full lg:w-1/2">
+                            <div className="overflow-hidden h-72 lg:h-[500px] w-full relative">
                                 <img
                                     src={blog.multiImage[1]}
                                     alt=""
@@ -166,61 +167,63 @@ export default function TravelBlog({ findBlogById }: any) {
                                 />
                             </div>
                         </div>
-                        <div className="w-1/2 flex flex-col items-end">
-                            <h1 className="text-4xl font-lemonMed">Stories</h1>
-                            <p className="w-96 text-lg text-right text-gray-600 my-5 font-poppins">
+                        <div className="w-full lg:w-1/2 mt-5 lg:mt-0 flex flex-col items-center lg:items-end">
+                            <h1 className="text-2xl lg:text-4xl font-lemonMed text-center lg:text-right mb-5">
+                                Stories
+                            </h1>
+                            <p className="w-full lg:w-96 text-base lg:text-lg text-gray-600 text-center lg:text-right">
                                 {blog.stories}
                             </p>
                         </div>
                     </div>
 
                     <div
-                        className="flex items-center justify-center flex-col px-20"
+                        className="my-10 lg:my-40 px-5 lg:px-20 flex flex-col items-center justify-center"
                         id="hotspots"
                     >
-                        <p className="text-4xl">
-                            <span className="font-lemonMed text-4xl">
+                        <p className="text-2xl lg:text-4xl flex items-center text-left">
+                            <span className="font-lemonMed text-2xl lg:text-4xl">
                                 Hotspots&nbsp;
                             </span>
-                            <i className="fa-solid fa-fire"></i>
+                            <i className="fa-solid fa-fire text-2xl lg:text-4xl"></i>
                         </p>
-                        <p className="text-lg font-poppins text-gray-500 mt-20 mb-40 w-[800px] text-center">
+                        <p className="text-base lg:text-lg text-gray-500 mt-5 lg:mt-10 mb-10 lg:mb-20 lg:w-3/4 text-center">
                             {blog.hotspots}
                         </p>
                     </div>
 
                     <div
-                        className="px-20 mb-40 flex flex-col items-start"
+                        className="px-14 md:px-20 md:mb-40 flex flex-col items-start"
                         id="route"
                     >
                         <p className="font-lemonMed text-4xl">
                             How to reach?&nbsp;
                             <i className="fa-solid fa-plane-arrival"></i>
                         </p>
-                        <p className="font-poppins text-lg text-gray-500 my-10">
+                        <p className="font-poppins text-base lg:text-lg text-gray-500 my-10">
                             {blog.route}
                         </p>
                     </div>
 
                     <div
-                        className="flex items-center justify-center gap-10 mb-40"
+                        className="mb-10 md:my-10 lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center gap-5"
                         id="saveCreateLike"
                     >
-                        <button className="flex flex-col items-center gap-5 active:scale-95 duration-150">
-                            <i className="fa-regular fa-thumbs-up text-6xl"></i>
-                            <span className="font-poppins font-bold text-3xl">
+                        <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
+                            <i className="fa-regular fa-thumbs-up text-4xl lg:text-6xl"></i>
+                            <span className="font-poppins font-bold text-base lg:text-3xl">
                                 Like this?
                             </span>
                         </button>
-                        <button className="flex flex-col items-center gap-5 active:scale-95 duration-150">
-                            <i className="fa-regular fa-bookmark text-6xl"></i>
-                            <span className="font-poppins font-bold text-3xl">
+                        <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
+                            <i className="fa-regular fa-bookmark text-4xl lg:text-6xl"></i>
+                            <span className="font-poppins font-bold text-base lg:text-3xl">
                                 Save this!
                             </span>
                         </button>
-                        <button className="flex flex-col items-center gap-5 active:scale-95 duration-150">
-                            <i className="fa-solid fa-pencil text-6xl"></i>
-                            <span className="font-poppins font-bold text-3xl">
+                        <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
+                            <i className="fa-solid fa-pencil text-4xl lg:text-6xl"></i>
+                            <span className="font-poppins font-bold text-base lg:text-3xl">
                                 Write one?
                             </span>
                         </button>
