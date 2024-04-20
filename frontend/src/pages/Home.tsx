@@ -159,31 +159,11 @@ export default function Home({
                             )
                         )
                     ) : (
-                        <div className="grid grid-cols-2 md:grid-cols-3 w-screen gap-10 px-5">
-                            <div className="flex flex-col gap-4 w-30 md:w-80">
-                                <div className="skeleton h-32 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                            </div>
-                            <div className="flex flex-col gap-4 w-30 md:w-80">
-                                <div className="skeleton h-32 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                            </div>
-                            <div className="flex flex-col gap-4 w-30 md:w-80">
-                                <div className="skeleton h-32 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                            </div>
-                            <div className="flex flex-col gap-4 w-30 md:w-80">
-                                <div className="skeleton h-32 w-full"></div>
-                                <div className="skeleton h-4 w-28"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                                <div className="skeleton h-4 w-full"></div>
-                            </div>
+                        <div className="flex flex-col gap-4 w-30 md:w-80">
+                            <div className="skeleton h-32 w-full"></div>
+                            <div className="skeleton h-4 w-28"></div>
+                            <div className="skeleton h-4 w-full"></div>
+                            <div className="skeleton h-4 w-full"></div>
                         </div>
                     )}
                 </div>

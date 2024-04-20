@@ -28,7 +28,7 @@ export default function Signup({ handleSignup }: Props) {
             initial={{ opacity: 0, y: "100vh" }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
-            className=" items-center"
+            className=" flex md:flex-row"
         >
             <div className="md:w-1/2 hidden md:block">
                 <div className="overflow-hidden h-screen">

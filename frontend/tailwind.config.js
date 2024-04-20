@@ -15,6 +15,15 @@ export default {
     },
     plugins: [require("daisyui")],
     daisyui: {
-        themes: ["bumblebee"],
+        themes: [
+            "bumblebee",
+            "emerald",
+            "dark",
+            "cupcake",
+            "retro",
+            "halloween",
+            "black",
+            "autumn",
+        ],
     },
 };

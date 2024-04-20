@@ -136,13 +136,7 @@ export default function TravelBlog({ findBlogById }: any) {
                         </div>
                     </div>
 
-                    <motion.div
-                        initial={{ x: "-100vw" }}
-                        whileInView={{ x: 0 }}
-                        transition={{
-                            duration: 1,
-                            ease: [0.2, 1, 0.2, 1],
-                        }}
+                    <div
                         className="px-5 lg:px-20 my-20 md:my-0 flex flex-col lg:flex-row items-center justify-center"
                         id="locations"
                     >
@@ -152,7 +146,7 @@ export default function TravelBlog({ findBlogById }: any) {
                                 {blog.locations}
                             </span>
                         </h1>
-                    </motion.div>
+                    </div>
 
                     <div
                         className="my-10 lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
