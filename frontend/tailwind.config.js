@@ -24,6 +24,7 @@ export default {
             "halloween",
             "black",
             "autumn",
+            "luxury",
         ],
     },
 };

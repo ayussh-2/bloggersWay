@@ -5,9 +5,9 @@ function AboutUs() {
             initial={{ opacity: 0, y: "100vh" }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
-            className="container mx-auto py-8 font-poppins"
+            className="container mx-auto py-8 px-10 font-poppins"
         >
-            <div className="max-w-3xl mx-auto p-8 bg-white rounded-lg">
+            <div className="max-w-3xl mx-auto p-8 bg-[#dca54c] text-[#09090b] rounded-lg">
                 <h1 className="text-3xl font-bold mb-4 font-lemonBld">
                     about us
                 </h1>

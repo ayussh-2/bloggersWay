@@ -1,16 +1,18 @@
 import { motion } from "framer-motion";
+import {toast} from "react-toastify";
 function Contact() {
     function submitForm(e: any) {
         e.preventDefault();
+        toast.info("Will get in touch soon!")
     }
     return (
         <motion.div
             initial={{ opacity: 0, y: "100vh" }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
-            className="container mx-auto py-8"
+            className="container mx-auto py-8 px-5"
         >
-            <div className="card max-w-3xl mx-auto p-8 bg-white rounded-lg">
+            <div className="card max-w-3xl bg-[#dca54c] text-[#09090b] mx-auto p-8 rounded-lg">
                 <h1 className="text-3xl font-bold mb-4 font-lemonMed">
                     Contact Us
                 </h1>
@@ -54,7 +56,7 @@ function Contact() {
                     <button
                         type="submit"
                         onClick={(e) => submitForm(e)}
-                        className="btn btn-outline"
+                        className="btn"
                     >
                         Send Message
                     </button>

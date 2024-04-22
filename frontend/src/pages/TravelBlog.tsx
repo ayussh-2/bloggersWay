@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import { motion } from "framer-motion";
 import { ScaleLoader } from "react-spinners";
 export default function TravelBlog({ findBlogById }: any) {
@@ -50,6 +50,21 @@ export default function TravelBlog({ findBlogById }: any) {
             behavior: "smooth",
         });
     }
+    function shortenSentence(sentence:string, maxLength:number) {
+
+        const words = sentence.split(' ');
+
+
+        if (words.length <= maxLength) {
+            return sentence;
+        }
+
+
+        const shortenedWords = words.slice(0, maxLength);
+        const shortenedSentence = shortenedWords.join(' ') + '...';
+
+        return shortenedSentence;
+    }
     return (
         <>
             {loading ? (
@@ -63,57 +78,60 @@ export default function TravelBlog({ findBlogById }: any) {
                     transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
                     className="font-poppins"
                 >
-                    <div className="relative mb-60 md:mb-0" id="top">
-                        <motion.div
-                            initial={{ opacity: 0, y: "-50vh" }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                                duration: 0.5,
-                                ease: [0.2, 1, 0.2, 1],
-                            }}
-                            className="overflow-hidden h-96 w-full relative"
-                        >
-                            <img
-                                src={blog.cover}
-                                alt=""
-                                className="absolute inset-0 w-full h-full object-cover"
-                            />
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 1,
-                                ease: [0.2, 1, 0.2, 1],
-                                delay: 0.5,
-                            }}
-                            className="absolute md:-bottom-24 -bottom-40 flex items-center justify-center w-full lg:-bottom-12 px-5"
-                        >
-                            <div className="bg-white lg:h-40 h-auto gap-x-10 gap-y-5 rounded-md font-poppins lg:px-10 px-5 lg:py-5 py-8 grid lg:grid-cols-2 grid-cols-1 drop-shadow-xl capitalize">
-                                <div className="flex items-center gap-5">
-                                    <i className="fa-solid fa-cloud text-3xl"></i>
-                                    <p>{blog.weather || "Windy"}</p>
+                    <div className="px-10">
+                        <div className="relative mb-60 md:mb-0 " id="top">
+                            <motion.div
+                                initial={{opacity: 0, y: "-50vh"}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{
+                                    duration: 0.5,
+                                    ease: [0.2, 1, 0.2, 1],
+                                }}
+                                className="overflow-hidden h-96 w-full relative"
+                            >
+                                <img
+                                    src={blog.cover}
+                                    alt=""
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            </motion.div>
+                            <motion.div
+                                initial={{opacity: 0, scale: 0}}
+                                animate={{opacity: 1, scale: 1}}
+                                transition={{
+                                    duration: 1,
+                                    ease: [0.2, 1, 0.2, 1],
+                                    delay: 0.5,
+                                }}
+                                className="absolute md:-bottom-24 text-sm md:text-base -bottom-40 flex items-center justify-center w-full lg:-bottom-12 px-5"
+                            >
+                                <div
+                                    className="bg-black shadow-amber-300 shadow-sm  lg:h-40 h-auto gap-x-10 gap-y-5 rounded-md font-poppins lg:px-10 px-5 lg:py-5 py-8 grid lg:grid-cols-2 grid-cols-1 capitalize">
+                                    <div className="flex items-center gap-5">
+                                        <i className="fa-solid fa-cloud text-3xl"></i>
+                                        <p>{shortenSentence(blog.weather, 3) || "Windy"}</p>
+                                    </div>
+                                    <div className="flex items-center gap-5">
+                                        <i className="fa-solid fa-temperature-half text-3xl"></i>
+                                        <p>{blog.avgTemp || "27"}&deg;</p>
+                                    </div>
+                                    <div className="flex items-center gap-5">
+                                        <i className="fa-solid fa-earth-asia text-3xl"></i>
+                                        <p>
+                                            {blog.cityAndCountry || "Kolkata,India"}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-5">
+                                        <i className="fa-solid fa-at text-3xl"></i>
+                                        <p>{blog.author}</p>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-5">
-                                    <i className="fa-solid fa-temperature-half text-3xl"></i>
-                                    <p>{blog.avgTemp || "27"}&deg;</p>
-                                </div>
-                                <div className="flex items-center gap-5">
-                                    <i className="fa-solid fa-earth-asia text-3xl"></i>
-                                    <p>
-                                        {blog.cityAndCountry || "Kolkata,India"}
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-5">
-                                    <i className="fa-solid fa-at text-3xl"></i>
-                                    <p>{blog.author}</p>
-                                </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
 
                     <div
-                        className="md:my-10 bottom- lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
+                        className="md:my-10 bottom- lg:my-40 px-10 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
                         id="aboutPlace"
                     >
                         <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-baseline">
@@ -121,7 +139,7 @@ export default function TravelBlog({ findBlogById }: any) {
                                 {blog.title}
                             </h1>
 
-                            <p className="w-full lg:w-96 text-gray-600 my-5 font-poppins text-base lg:text-lg text-center lg:text-left">
+                            <p className="w-full lg:w-96 text-sm text-left text-gray-400  my-5 font-poppins md:text-base lg:text-lg md:text-center lg:text-left">
                                 {blog.about}
                             </p>
                         </div>
@@ -137,7 +155,7 @@ export default function TravelBlog({ findBlogById }: any) {
                     </div>
 
                     <div
-                        className="px-5 lg:px-20 my-20 md:my-0 flex flex-col lg:flex-row items-center justify-center"
+                        className="px-10 lg:px-20 my-20 md:my-0 flex flex-col lg:flex-row items-center justify-center"
                         id="locations"
                     >
                         <h1 className="flex items-center gap-5 text-center lg:text-left">
@@ -149,7 +167,7 @@ export default function TravelBlog({ findBlogById }: any) {
                     </div>
 
                     <div
-                        className="my-10 lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
+                        className="my-10 lg:my-40 px-10 lg:px-20 flex flex-col lg:flex-row items-center justify-center"
                         id="stories"
                     >
                         <div className="w-full lg:w-1/2">
@@ -165,14 +183,14 @@ export default function TravelBlog({ findBlogById }: any) {
                             <h1 className="text-2xl lg:text-4xl font-lemonMed text-center lg:text-right mb-5">
                                 Stories
                             </h1>
-                            <p className="w-full lg:w-96 text-base lg:text-lg text-gray-600 text-center lg:text-right">
+                            <p className="w-full lg:w-96 text-right text-sm md:text-base lg:text-lg text-gray-400  md:text-center lg:text-right">
                                 {blog.stories}
                             </p>
                         </div>
                     </div>
 
                     <div
-                        className="my-10 lg:my-40 px-5 lg:px-20 flex flex-col items-center justify-center"
+                        className="my-10 lg:my-40 px-10 lg:px-20 flex flex-col items-center justify-center"
                         id="hotspots"
                     >
                         <p className="text-2xl lg:text-4xl flex items-center text-left">
@@ -181,7 +199,7 @@ export default function TravelBlog({ findBlogById }: any) {
                             </span>
                             <i className="fa-solid fa-fire text-2xl lg:text-4xl"></i>
                         </p>
-                        <p className="text-base lg:text-lg text-gray-500 mt-5 lg:mt-10 mb-10 lg:mb-20 lg:w-3/4 text-center">
+                        <p className="text-sm left md:text-base lg:text-lg text-gray-400 mt-5 lg:mt-10 mb-10 lg:mb-20 lg:w-3/4 md:text-center">
                             {blog.hotspots}
                         </p>
                     </div>
@@ -190,17 +208,17 @@ export default function TravelBlog({ findBlogById }: any) {
                         className="px-14 md:px-20 md:mb-40 flex flex-col items-start"
                         id="route"
                     >
-                        <p className="font-lemonMed text-4xl">
+                        <p className="text-2xl lg:text-4xl font-lemonMed text-center lg:text-right mb-5">
                             How to reach?&nbsp;
                             <i className="fa-solid fa-plane-arrival"></i>
                         </p>
-                        <p className="font-poppins text-base lg:text-lg text-gray-500 my-10">
+                        <p className="font-poppins  text-sm md:text-base lg:text-lg text-gray-400 mb-10">
                             {blog.route}
                         </p>
                     </div>
 
                     <div
-                        className="mb-10 md:my-10 lg:my-40 px-5 lg:px-20 flex flex-col lg:flex-row items-center justify-center gap-5"
+                        className="mb-10 md:my-10 lg:my-40 px-10 lg:px-20 flex flex-row  items-center justify-center gap-5"
                         id="saveCreateLike"
                     >
                         <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
@@ -215,12 +233,13 @@ export default function TravelBlog({ findBlogById }: any) {
                                 Save this!
                             </span>
                         </button>
+                        <Link to={"/create"}>
                         <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
                             <i className="fa-solid fa-pencil text-4xl lg:text-6xl"></i>
                             <span className="font-poppins font-bold text-base lg:text-3xl">
                                 Write one?
                             </span>
-                        </button>
+                        </button></Link>
                     </div>
 
                     <div className="relative" id="end">

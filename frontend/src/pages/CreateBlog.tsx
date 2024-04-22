@@ -143,7 +143,7 @@ export default function CreateBlog({
                 initial={{ opacity: 0, y: "100vh" }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
-                className="container relative mx-auto p-20 font-poppins"
+                className="container relative mx-auto p-10 md:p-20 font-poppins"
             >
                 <h1 className="text-2xl font-bold mb-5">Create New Blog</h1>
                 <form className="space-y-4">
@@ -376,7 +376,7 @@ export default function CreateBlog({
                     <div className="flex justify-center">
                         <button
                             type="submit"
-                            className="btn"
+                            className="btn mt-5"
                             onClick={(e) => handleSubmit(e)}
                         >
                             Upload
