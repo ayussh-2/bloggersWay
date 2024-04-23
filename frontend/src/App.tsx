@@ -184,7 +184,7 @@ export default function App() {
                     exit={{ opacity: 0 }}
                     className="backdrop-blur-md h-full w-full flex items-center justify-center z-10 absolute"
                 >
-                    <ScaleLoader color="#000" />
+                    <ScaleLoader color="#fff" />
                 </motion.div>
             )}
             <Navbar
