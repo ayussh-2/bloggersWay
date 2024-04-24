@@ -39,6 +39,7 @@ export default function App() {
             .then(function (res) {
                 console.log(res);
                 toast.success("Account Created!");
+                navigate("/");
             })
             .catch(function (err) {
                 // console.error(err.response.data.msg);
@@ -146,6 +147,7 @@ export default function App() {
         toast.success("Logged Out Successfully!");
         handleLoginState(false);
     }
+
     function scrollToTop() {
         window.scrollTo({
             top: 0,

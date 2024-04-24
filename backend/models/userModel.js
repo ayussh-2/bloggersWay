@@ -5,6 +5,7 @@ const userSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    likes: { type: Array },
 });
 
 userSchema.statics.signup = async function (name, email, password) {
@@ -30,6 +31,15 @@ userSchema.statics.login = async function (email, password) {
     }
 
     return user;
+};
+
+userSchema.statics.likes = async function (email, like) {
+    const user = await this.findOne({ email });
+    if (!user) {
+        throw new Error("User not found");
+    }
+    const liked = await this.updateOne({ email }, { $push: { likes: like } });
+    return liked;
 };
 
 module.exports = mongoose.model("user", userSchema);

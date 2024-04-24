@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Link, useSearchParams} from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ScaleLoader } from "react-spinners";
 export default function TravelBlog({ findBlogById }: any) {
@@ -50,18 +50,15 @@ export default function TravelBlog({ findBlogById }: any) {
             behavior: "smooth",
         });
     }
-    function shortenSentence(sentence:string, maxLength:number) {
-
-        const words = sentence.split(' ');
-
+    function shortenSentence(sentence: string, maxLength: number) {
+        const words = sentence.split(" ");
 
         if (words.length <= maxLength) {
             return sentence;
         }
 
-
         const shortenedWords = words.slice(0, maxLength);
-        const shortenedSentence = shortenedWords.join(' ') + '...';
+        const shortenedSentence = shortenedWords.join(" ") + "...";
 
         return shortenedSentence;
     }
@@ -69,7 +66,7 @@ export default function TravelBlog({ findBlogById }: any) {
         <>
             {loading ? (
                 <div className="h-screen w-full flex items-center justify-center">
-                    <ScaleLoader color="#000" />
+                    <ScaleLoader color="#fff" />
                 </div>
             ) : (
                 <motion.div
@@ -78,11 +75,11 @@ export default function TravelBlog({ findBlogById }: any) {
                     transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
                     className="font-poppins"
                 >
-                    <div className="px-10">
+                    <div className="md:px-10">
                         <div className="relative mb-60 md:mb-0 " id="top">
                             <motion.div
-                                initial={{opacity: 0, y: "-50vh"}}
-                                animate={{opacity: 1, y: 0}}
+                                initial={{ opacity: 0, y: "-50vh" }}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{
                                     duration: 0.5,
                                     ease: [0.2, 1, 0.2, 1],
@@ -96,8 +93,8 @@ export default function TravelBlog({ findBlogById }: any) {
                                 />
                             </motion.div>
                             <motion.div
-                                initial={{opacity: 0, scale: 0}}
-                                animate={{opacity: 1, scale: 1}}
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
                                 transition={{
                                     duration: 1,
                                     ease: [0.2, 1, 0.2, 1],
@@ -105,11 +102,13 @@ export default function TravelBlog({ findBlogById }: any) {
                                 }}
                                 className="absolute md:-bottom-24 text-sm md:text-base -bottom-40 flex items-center justify-center w-full lg:-bottom-12 px-5"
                             >
-                                <div
-                                    className="bg-black shadow-amber-300 shadow-sm  lg:h-40 h-auto gap-x-10 gap-y-5 rounded-md font-poppins lg:px-10 px-5 lg:py-5 py-8 grid lg:grid-cols-2 grid-cols-1 capitalize">
+                                <div className="bg-black shadow-amber-300 shadow-sm  lg:h-40 h-auto gap-x-10 gap-y-5 rounded-md font-poppins lg:px-10 px-5 lg:py-5 py-8 grid lg:grid-cols-2 grid-cols-1 capitalize">
                                     <div className="flex items-center gap-5">
                                         <i className="fa-solid fa-cloud text-3xl"></i>
-                                        <p>{shortenSentence(blog.weather, 3) || "Windy"}</p>
+                                        <p>
+                                            {shortenSentence(blog.weather, 3) ||
+                                                "Windy"}
+                                        </p>
                                     </div>
                                     <div className="flex items-center gap-5">
                                         <i className="fa-solid fa-temperature-half text-3xl"></i>
@@ -118,7 +117,8 @@ export default function TravelBlog({ findBlogById }: any) {
                                     <div className="flex items-center gap-5">
                                         <i className="fa-solid fa-earth-asia text-3xl"></i>
                                         <p>
-                                            {blog.cityAndCountry || "Kolkata,India"}
+                                            {blog.cityAndCountry ||
+                                                "Kolkata,India"}
                                         </p>
                                     </div>
                                     <div className="flex items-center gap-5">
@@ -234,12 +234,13 @@ export default function TravelBlog({ findBlogById }: any) {
                             </span>
                         </button>
                         <Link to={"/create"}>
-                        <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
-                            <i className="fa-solid fa-pencil text-4xl lg:text-6xl"></i>
-                            <span className="font-poppins font-bold text-base lg:text-3xl">
-                                Write one?
-                            </span>
-                        </button></Link>
+                            <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
+                                <i className="fa-solid fa-pencil text-4xl lg:text-6xl"></i>
+                                <span className="font-poppins font-bold text-base lg:text-3xl">
+                                    Write one?
+                                </span>
+                            </button>
+                        </Link>
                     </div>
 
                     <div className="relative" id="end">
