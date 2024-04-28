@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ScaleLoader } from "react-spinners";
 export default function TravelBlog({ findBlogById, likeBlog }: any) {
     const [params] = useSearchParams();
-    const [liked, setLiked] = useState(false);
+    // const [liked, setLiked] = useState(false);
     const [blog, setBlog] = useState({
         cover: "",
         weather: "",
