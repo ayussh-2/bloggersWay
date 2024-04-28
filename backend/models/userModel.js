@@ -33,12 +33,8 @@ userSchema.statics.login = async function (email, password) {
     return user;
 };
 
-userSchema.statics.likes = async function (email, like) {
-    const user = await this.findOne({ email });
-    if (!user) {
-        throw new Error("User not found");
-    }
-    const liked = await this.updateOne({ email }, { $push: { likes: like } });
+userSchema.statics.likes = async function (uid, like) {
+    const liked = await this.updateOne({ uid }, { $push: { likes: like } });
     return liked;
 };
 

@@ -2,22 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 const NotFound: React.FC = () => {
     return (
-        <div className="flex items-center justify-center h-screen px-5">
-            <div className="text-center flex items-center gap-5 flex-col">
-                <h1 className="text-6xl font-bold text-gray-800 font-lemonBld">
-                    404
-                </h1>
-                <p className="text-2xl text-gray-600 font-lemonMed">
-                    Page Not Found
-                </p>
-                <p className="text-gray-500 font-poppins">
-                    Oops! The page you are looking for does not exist.
-                </p>
-                <Link to={"/"}>
-                    <button className="btn btn-info text-white font-poppins">
-                        Go Back
-                    </button>
-                </Link>
+        <div
+            className="hero min-h-screen"
+            style={{
+                backgroundImage:
+                    "url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)",
+            }}
+        >
+            <div className="hero-overlay bg-opacity-60"></div>
+            <div className="hero-content text-center text-neutral-content">
+                <div className="max-w-md">
+                    <h1 className="mb-5 text-5xl font-bold capitalize">
+                        It's a dead end!
+                    </h1>
+                    <p className="mb-5 text-3xl">
+                        The page you are looking for does not exist.
+                    </p>
+                    <Link to={"/"}>
+                        <button className="btn">Head back home!</button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

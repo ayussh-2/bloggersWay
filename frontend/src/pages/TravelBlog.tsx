@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ScaleLoader } from "react-spinners";
-export default function TravelBlog({ findBlogById }: any) {
+export default function TravelBlog({ findBlogById, likeBlog }: any) {
     const [params] = useSearchParams();
+    const [liked, setLiked] = useState(false);
     const [blog, setBlog] = useState({
         cover: "",
         weather: "",
@@ -18,6 +19,7 @@ export default function TravelBlog({ findBlogById }: any) {
         hotspots: "",
         route: "",
     });
+
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const bid = params.get("bid");
@@ -221,7 +223,10 @@ export default function TravelBlog({ findBlogById }: any) {
                         className="mb-10 md:my-10 lg:my-40 px-10 lg:px-20 flex flex-row  items-center justify-center gap-5"
                         id="saveCreateLike"
                     >
-                        <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
+                        <button
+                            className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150"
+                            onClick={() => likeBlog(params.get("bid"))}
+                        >
                             <i className="fa-regular fa-thumbs-up text-4xl lg:text-6xl"></i>
                             <span className="font-poppins font-bold text-base lg:text-3xl">
                                 Like this?

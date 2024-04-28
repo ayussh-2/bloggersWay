@@ -39,7 +39,7 @@ export default function App() {
             .then(function (res) {
                 console.log(res);
                 toast.success("Account Created!");
-                navigate("/");
+                navigate("/login");
             })
             .catch(function (err) {
                 // console.error(err.response.data.msg);
@@ -58,12 +58,15 @@ export default function App() {
         axios
             .post(proxy + "/api/users/login", user)
             .then(function (res) {
+                // console.log(res);
+
                 localStorage.setItem(
                     "user",
                     JSON.stringify({
                         uid: res.data.user._id,
                         name: res.data.user.name,
                         mail: res.data.user.email,
+                        likes: res.data.user.likes,
                     })
                 );
 
@@ -148,6 +151,31 @@ export default function App() {
         handleLoginState(false);
     }
 
+    function likeBlog(bid: string) {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        console.log(localStorage.getItem("user"));
+
+        if (user.uid === "" || user.uid === undefined) {
+            toast.error("Please login to like the blog");
+            return;
+        }
+        if (bid === "") {
+            toast.error("No blog found to like!");
+            return;
+        }
+
+        axios
+            .post(proxy + "/api/users/like", { blog: bid, email: user.uid })
+            .then((res) => {
+                console.log(res);
+                toast.success("Liked the blog!");
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error("Failed to like the blog!");
+            });
+    }
+
     function scrollToTop() {
         window.scrollTo({
             top: 0,
@@ -228,7 +256,12 @@ export default function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route
                             path="/travel"
-                            element={<TravelBlog findBlogById={getBlogById} />}
+                            element={
+                                <TravelBlog
+                                    findBlogById={getBlogById}
+                                    likeBlog={likeBlog}
+                                />
+                            }
                         />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

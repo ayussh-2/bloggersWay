@@ -23,7 +23,7 @@ const likeBlog = async (req, res) => {
     const { email, blog } = req.body;
     try {
         const liked = await user.likes(email, blog);
-        res.status(200).json({ msg: "success" });
+        res.status(200).json({ msg: "Liked" });
     } catch (err) {
         res.status(400).json({ msg: err.message });
     }
