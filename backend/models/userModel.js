@@ -52,10 +52,11 @@ userSchema.statics.likes = async function (uid, like) {
 
     if (!likes.includes(like)) {
         update = await this.updateOne({ _id: uid }, { $push: { likes: like } });
+        // console.log("inserted");
     } else {
         update = await this.updateOne({ _id: uid }, { $pull: { likes: like } });
+        // console.log("removed");
     }
-
     return update;
 };
 

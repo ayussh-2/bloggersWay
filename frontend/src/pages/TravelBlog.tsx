@@ -5,7 +5,7 @@ import { ScaleLoader } from "react-spinners";
 export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
     const [params] = useSearchParams();
     const [liked, setLiked] = useState(false);
-    const [refresh, setRefresh] = useState(false);
+    // const [refresh, setRefresh] = useState(false);
     const [blog, setBlog] = useState({
         cover: "",
         weather: "",
@@ -29,10 +29,9 @@ export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
         fetchBlog(bid);
     }, []);
 
-    useEffect(() => {
-        getUserLikes();
-        console.log(refresh);
-    }, [liked, refresh]);
+    // useEffect(() => {
+    //     getUserLikes();
+    // }, [liked, refresh]);
 
     async function getUserLikes() {
         const bid = params.get("bid");
@@ -40,13 +39,12 @@ export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
         const userDetails = await findUser(user);
         const likesArr = userDetails.user.likes;
         console.log(likesArr);
-
         setLiked(likesArr.includes(bid));
-        // console.log(likesArr);
     }
     async function addToLikes() {
         likeBlog(params.get("bid"));
-        setRefresh(!refresh);
+        // setRefresh(!refresh);
+        getUserLikes();
     }
     async function fetchBlog(id: any) {
         try {

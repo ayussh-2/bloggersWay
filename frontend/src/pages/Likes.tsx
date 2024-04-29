@@ -36,7 +36,7 @@ export default function Likes({ findUser, getBlog }: any) {
                 <>
                     {" "}
                     {blogs.length > 0 ? (
-                        <div className="gap-10 grid place-content-center grid-cols-3">
+                        <div className="gap-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 place-content-center">
                             {blogs.map(
                                 (blog: {
                                     title: string;
@@ -44,15 +44,11 @@ export default function Likes({ findUser, getBlog }: any) {
                                     author: string;
                                     _id: string;
                                 }) => (
-                                    <div>
+                                    <div key={blog._id} className="mb-4">
                                         <motion.div
-                                            key={blog._id}
                                             initial={{ opacity: 0, y: 50 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            transition={{
-                                                duration: 0.5,
-                                            }}
-                                            style={{ marginBottom: 20 }}
+                                            transition={{ duration: 0.5 }}
                                         >
                                             <HorizontalCard
                                                 title={blog.title}
