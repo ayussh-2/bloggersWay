@@ -24,7 +24,7 @@ function Card({
     }
     return (
         <div
-            className="card hover:bg-[#c28642] hover:text-black hover:shadow-2xl shadow-amber-300 group cursor-pointer bg-base-100 shadow-sm duration-500 active:scale-90 font-noto"
+            className="card hover:shadow-2xl shadow-amber-300 group cursor-pointer bg-base-100 shadow-sm duration-500 active:scale-90 font-noto"
             onClick={() => handleChangeBlog(blogId)}
         >
             <figure className="overflow-hidden">
@@ -35,7 +35,7 @@ function Card({
                     className="w-full md:h-60 h-40 object-cover group-hover:scale-110 duration-500"
                 />
             </figure>
-            <div className="p-5 md:p-10  md:gap-y-5 gap-y-2 flex flex-col">
+            <div className="p-5 md:p-10 md:gap-y-5 gap-y-2 flex flex-col">
                 <h2
                     className={`text-xl font-lato font-bold md:text-2xl ${
                         title === "" ? "skeleton" : ""
@@ -47,7 +47,9 @@ function Card({
                     {limitWords(info, 20)}
                 </p>
                 <div className="card-actions justify-end">
-                    <div className="badge badge-outline text-gray-500 bg-[#dca54c] font-poppins text-sm font-medium"><span className="text-black">{author}</span></div>
+                    <div className="badge badge-outline text-gray-500 bg-[#dca54c] font-poppins text-sm font-medium">
+                        <span className="text-black">{author}</span>
+                    </div>
                 </div>
             </div>
         </div>

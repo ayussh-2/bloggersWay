@@ -33,9 +33,30 @@ userSchema.statics.login = async function (email, password) {
     return user;
 };
 
+userSchema.statics.findUser = async function (uid) {
+    const user = await this.findOne({ _id: uid });
+    if (!user) {
+        throw new Error("User not found!");
+    }
+    return user;
+};
+
 userSchema.statics.likes = async function (uid, like) {
-    const liked = await this.updateOne({ uid }, { $push: { likes: like } });
-    return liked;
+    const user = await this.findOne({ _id: uid });
+    if (!user) {
+        throw new Error("User not found");
+    }
+
+    const likes = user.likes;
+    let update;
+
+    if (!likes.includes(like)) {
+        update = await this.updateOne({ _id: uid }, { $push: { likes: like } });
+    } else {
+        update = await this.updateOne({ _id: uid }, { $pull: { likes: like } });
+    }
+
+    return update;
 };
 
 module.exports = mongoose.model("user", userSchema);

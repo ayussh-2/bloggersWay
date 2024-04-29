@@ -58,7 +58,7 @@ export default function App() {
         axios
             .post(proxy + "/api/users/login", user)
             .then(function (res) {
-                // console.log(res);
+                console.log(res.data.user);
 
                 localStorage.setItem(
                     "user",
@@ -66,7 +66,6 @@ export default function App() {
                         uid: res.data.user._id,
                         name: res.data.user.name,
                         mail: res.data.user.email,
-                        likes: res.data.user.likes,
                     })
                 );
 
@@ -76,6 +75,18 @@ export default function App() {
                 toast.error(err.response.data.msg);
             })
             .finally(() => setLoading(false));
+    }
+
+    async function getUser(uid: string) {
+        try {
+            const response = await axios.post(proxy + "/api/users/findUser", {
+                uid: uid,
+            });
+            return response.data;
+        } catch (error) {
+            console.log("Error fetching user:", error);
+            throw error;
+        }
     }
 
     function createBlog(blog: {
@@ -153,7 +164,7 @@ export default function App() {
 
     function likeBlog(bid: string) {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
-        console.log(localStorage.getItem("user"));
+        // console.log(localStorage.getItem("user"));
 
         if (user.uid === "" || user.uid === undefined) {
             toast.error("Please login to like the blog");
@@ -166,10 +177,6 @@ export default function App() {
 
         axios
             .post(proxy + "/api/users/like", { blog: bid, email: user.uid })
-            .then((res) => {
-                console.log(res);
-                toast.success("Liked the blog!");
-            })
             .catch((err) => {
                 console.log(err);
                 toast.error("Failed to like the blog!");
@@ -260,6 +267,7 @@ export default function App() {
                                 <TravelBlog
                                     findBlogById={getBlogById}
                                     likeBlog={likeBlog}
+                                    findUser={getUser}
                                 />
                             }
                         />

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ScaleLoader } from "react-spinners";
-export default function TravelBlog({ findBlogById, likeBlog }: any) {
+export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
     const [params] = useSearchParams();
-    // const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(false);
+    const [refresh, setRefresh] = useState(false);
     const [blog, setBlog] = useState({
         cover: "",
         weather: "",
@@ -24,9 +25,26 @@ export default function TravelBlog({ findBlogById, likeBlog }: any) {
     useEffect(() => {
         const bid = params.get("bid");
         // console.log(bid);
+        getUserLikes();
         fetchBlog(bid);
     }, []);
 
+    useEffect(() => {
+        getUserLikes();
+    }, [liked, refresh]);
+
+    async function getUserLikes() {
+        const bid = params.get("bid");
+        const user = JSON.parse(localStorage.getItem("user") || "").uid;
+        const userDetails = await findUser(user);
+        const likesArr = userDetails.user.likes;
+        setLiked(likesArr.includes(bid));
+        // console.log(likesArr);
+    }
+    async function addToLikes() {
+        likeBlog(params.get("bid"));
+        setRefresh(!refresh);
+    }
     async function fetchBlog(id: any) {
         try {
             const blogObject = await findBlogById(id);
@@ -225,17 +243,21 @@ export default function TravelBlog({ findBlogById, likeBlog }: any) {
                     >
                         <button
                             className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150"
-                            onClick={() => likeBlog(params.get("bid"))}
+                            onClick={() => addToLikes()}
                         >
-                            <i className="fa-regular fa-thumbs-up text-4xl lg:text-6xl"></i>
+                            <i
+                                className={`fa-${
+                                    liked ? "solid" : "regular"
+                                } fa-thumbs-up text-4xl lg:text-6xl`}
+                            ></i>
                             <span className="font-poppins font-bold text-base lg:text-3xl">
-                                Like this?
+                                {liked ? "You Like it!" : "Like this?"}
                             </span>
                         </button>
                         <button className="flex flex-col items-center gap-2 lg:gap-5 active:scale-95 duration-150">
-                            <i className="fa-regular fa-bookmark text-4xl lg:text-6xl"></i>
+                            <i className="fa-solid fa-share text-4xl lg:text-6xl"></i>
                             <span className="font-poppins font-bold text-base lg:text-3xl">
-                                Save this!
+                                Share this!
                             </span>
                         </button>
                         <Link to={"/create"}>

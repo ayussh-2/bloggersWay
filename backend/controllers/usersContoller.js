@@ -23,10 +23,21 @@ const likeBlog = async (req, res) => {
     const { email, blog } = req.body;
     try {
         const liked = await user.likes(email, blog);
-        res.status(200).json({ msg: "Liked" });
+
+        res.status(200).json({ msg: "Liked", liked });
     } catch (err) {
         res.status(400).json({ msg: err.message });
     }
 };
 
-module.exports = { loginUser, signupUser, likeBlog };
+const findUserById = async (req, res) => {
+    const { uid } = req.body;
+    // console.log(uid);
+    try {
+        const userDetails = await user.findUser(uid);
+        res.status(200).json({ user: userDetails });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
+};
+module.exports = { loginUser, signupUser, likeBlog, findUserById };
