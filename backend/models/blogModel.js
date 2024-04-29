@@ -59,6 +59,16 @@ blogSchema.statics.getBlogs = async function (page, blogPerPage) {
     return blogs;
 };
 
+blogSchema.statics.getBlogByUser = async function (uid) {
+    try {
+        const blogs = await this.find({ uid: uid });
+        return blogs;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 blogSchema.statics.getCount = async function () {
     try {
         const count = await this.countDocuments({}).exec();

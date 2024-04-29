@@ -11,7 +11,6 @@ export default function Likes({ findUser, getBlog }: any) {
             const user = JSON.parse(localStorage.getItem("user") || "").uid;
             const userDetails = await findUser(user);
             const likesArr = userDetails.user.likes;
-
             const fetchedBlogs: any = await Promise.all(
                 likesArr.map((id: string) => getBlog(id))
             );
@@ -55,6 +54,7 @@ export default function Likes({ findUser, getBlog }: any) {
                                                 img={blog.cover}
                                                 author={blog.author}
                                                 bid={blog._id}
+                                                delete={false}
                                             />
                                         </motion.div>
                                     </div>

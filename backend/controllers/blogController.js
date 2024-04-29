@@ -48,6 +48,15 @@ const getAllBlogs = async (req, res) => {
     }
 };
 
+const getBlogsByUser = async (req, res) => {
+    const { uid } = req.query;
+    try {
+        const blogs = await blog.getBlogByUser(uid);
+        res.status(200).json(blogs);
+    } catch (err) {
+        console.log(err);
+    }
+};
 const returnCount = async (req, res) => {
     try {
         const count = await blog.getCount();
@@ -68,4 +77,10 @@ const blogFind = async (req, res) => {
     }
 };
 
-module.exports = { createBlog, getAllBlogs, returnCount, blogFind };
+module.exports = {
+    createBlog,
+    getAllBlogs,
+    returnCount,
+    blogFind,
+    getBlogsByUser,
+};

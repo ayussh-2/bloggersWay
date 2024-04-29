@@ -19,6 +19,7 @@ import AboutUs from "./pages/About";
 import Contact from "./pages/ContactUs";
 import Likes from "./pages/Likes";
 import { ScaleLoader } from "react-spinners";
+import Profile from "./pages/Profile";
 export default function App() {
     const location = useLocation();
     const proxy: String = import.meta.env.VITE_PROXY;
@@ -76,6 +77,17 @@ export default function App() {
             .finally(() => setLoading(false));
     }
 
+    async function fetchBlogsByUser(uid: string) {
+        try {
+            const response = await axios.get(
+                proxy + "/api/blogs/getBlogByUser?uid=" + uid
+            );
+            return response.data;
+        } catch (error) {
+            console.log("Error fetching blogs:", error);
+            throw error;
+        }
+    }
     async function getUser(uid: string) {
         try {
             const response = await axios.post(proxy + "/api/users/findUser", {
@@ -277,6 +289,12 @@ export default function App() {
                                     findUser={getUser}
                                     getBlog={getBlogById}
                                 />
+                            }
+                        />
+                        <Route
+                            path="/profile"
+                            element={
+                                <Profile fetchBlogsByUser={fetchBlogsByUser} />
                             }
                         />
                         <Route path="*" element={<NotFound />} />

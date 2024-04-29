@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
-
+import {} from "react-router-dom";
 export default function HorizontalCard({
     title = "title",
     author = "John Doe",
     bid = "1",
+    delete: deleteBlog = false,
     img = "https://images.pexels.com/photos/20782484/pexels-photo-20782484/free-photo-of-silhouettes-of-electricity-poles-during-sunset.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
 }: {
     title: string;
     author: string;
     bid: string;
     img: string;
+    delete: boolean;
 }) {
     const navigate = useNavigate();
     function navigateToBlog() {
@@ -30,6 +32,16 @@ export default function HorizontalCard({
                     >
                         Visit!
                     </button>
+                    {deleteBlog && (
+                        <>
+                            <button className="btn btn-error">
+                                <i className="fa-solid fa-trash"></i>
+                            </button>
+                            <button className="btn">
+                                <i className="fa-solid fa-pencil"></i>
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         </div>
