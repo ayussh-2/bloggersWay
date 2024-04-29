@@ -136,9 +136,11 @@ export default function Navbar({
                                     </span>
                                 </li>
                                 <li onClick={handleCloseSidebar}>
-                                    <span className="capitalize text-lg">
-                                        My favorites
-                                    </span>
+                                    <Link to="/likes">
+                                        <span className="capitalize text-lg">
+                                            My Likes
+                                        </span>
+                                    </Link>
                                 </li>
                             </div>
                             <div className="mt-5">

@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/About";
 import Contact from "./pages/ContactUs";
+import Likes from "./pages/Likes";
 import { ScaleLoader } from "react-spinners";
 export default function App() {
     const location = useLocation();
@@ -58,8 +59,6 @@ export default function App() {
         axios
             .post(proxy + "/api/users/login", user)
             .then(function (res) {
-                console.log(res.data.user);
-
                 localStorage.setItem(
                     "user",
                     JSON.stringify({
@@ -268,6 +267,15 @@ export default function App() {
                                     findBlogById={getBlogById}
                                     likeBlog={likeBlog}
                                     findUser={getUser}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/likes"
+                            element={
+                                <Likes
+                                    findUser={getUser}
+                                    getBlog={getBlogById}
                                 />
                             }
                         />

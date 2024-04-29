@@ -31,6 +31,7 @@ export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
 
     useEffect(() => {
         getUserLikes();
+        console.log(refresh);
     }, [liked, refresh]);
 
     async function getUserLikes() {
@@ -38,6 +39,8 @@ export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
         const user = JSON.parse(localStorage.getItem("user") || "").uid;
         const userDetails = await findUser(user);
         const likesArr = userDetails.user.likes;
+        console.log(likesArr);
+
         setLiked(likesArr.includes(bid));
         // console.log(likesArr);
     }
