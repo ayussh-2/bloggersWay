@@ -15,15 +15,15 @@ export default function HorizontalCard({
     delete: boolean;
     deleteBlogFn: (bid: string) => void;
 }) {
-    console.log(bid);
-
     const navigate = useNavigate();
     function navigateToBlog() {
         navigate("/travel?bid=" + bid);
     }
     function deleteThisBlog() {
-        // const confirmBool =  confirm("Are you sure you want to delete this blog?")
         deleteBlogFn(bid);
+    }
+    function editThisBlog() {
+        navigate("/edit?bid=" + bid);
     }
     function modal(title: string) {
         Swal.fire({
@@ -39,7 +39,7 @@ export default function HorizontalCard({
         });
     }
     return (
-        <div className="card md:w-96 bg-base-100 shadow-xl image-full">
+        <div className="card z-10 w-auto bg-base-100 shadow-xl image-full">
             <figure>
                 <img src={img} alt="image cover" />
             </figure>
@@ -60,6 +60,9 @@ export default function HorizontalCard({
                                 onClick={() => modal(title)}
                             >
                                 <i className="fa-solid fa-trash"></i>
+                            </button>
+                            <button className="btn" onClick={editThisBlog}>
+                                <i className="fa-solid fa-pencil"></i>
                             </button>
                         </>
                     )}

@@ -16,7 +16,7 @@ const createBlog = async (req, res) => {
         avgTemp,
     } = req.body;
     try {
-        const data = await blog.createBlog(
+        const bid = await blog.createBlog(
             uid,
             author,
             title,
@@ -31,7 +31,12 @@ const createBlog = async (req, res) => {
             weather,
             avgTemp
         );
-        res.status(200).json({ msg: "Blog created successfully", author, uid });
+        res.status(200).json({
+            msg: "Blog created successfully",
+            author,
+            uid,
+            bid,
+        });
     } catch (err) {
         res.status(400).json({ msg: err });
         console.log(err);
@@ -86,6 +91,45 @@ const deleteBlogById = async (req, res) => {
         res.status(400).json({ err: err.message });
     }
 };
+const updateBlogById = async (req, res) => {
+    const bid = req.query.bid;
+    const {
+        uid,
+        author,
+        title,
+        locations,
+        cover,
+        multiImage,
+        hotspots,
+        route,
+        about,
+        stories,
+        cityAndCountry,
+        weather,
+        avgTemp,
+    } = req.body;
+    try {
+        const result = await blog.updateBlog(
+            bid,
+            uid,
+            author,
+            title,
+            locations,
+            cover,
+            multiImage,
+            hotspots,
+            route,
+            about,
+            stories,
+            cityAndCountry,
+            weather,
+            avgTemp
+        );
+        res.status(200).json({ msg: "Blog updated successfully", result });
+    } catch (err) {
+        res.status(400).json({ err: err.message });
+    }
+};
 module.exports = {
     createBlog,
     getAllBlogs,
@@ -93,4 +137,5 @@ module.exports = {
     blogFind,
     getBlogsByUser,
     deleteBlogById,
+    updateBlogById,
 };

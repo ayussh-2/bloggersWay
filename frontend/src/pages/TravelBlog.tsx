@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ScaleLoader } from "react-spinners";
 export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
     const [params] = useSearchParams();
     const [liked, setLiked] = useState(false);
-    // const [refresh, setRefresh] = useState(false);
+    const [likesArr, setLikesArr] = useState([]);
     const [blog, setBlog] = useState({
         cover: "",
         weather: "",
@@ -24,21 +23,20 @@ export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const bid = params.get("bid");
-        // console.log(bid);
         getUserLikes();
         fetchBlog(bid);
     }, []);
 
-    // useEffect(() => {
-    //     getUserLikes();
-    // }, [liked, refresh]);
+    useEffect(() => {
+        getUserLikes();
+    }, [likesArr]);
 
     async function getUserLikes() {
         const bid = params.get("bid");
         const user = JSON.parse(localStorage.getItem("user") || "").uid;
         const userDetails = await findUser(user);
         const likesArr = userDetails.user.likes;
-        console.log(likesArr);
+        setLikesArr(likesArr);
         setLiked(likesArr.includes(bid));
     }
     async function addToLikes() {
@@ -87,7 +85,7 @@ export default function TravelBlog({ findBlogById, likeBlog, findUser }: any) {
         <>
             {loading ? (
                 <div className="h-screen w-full flex items-center justify-center">
-                    <ScaleLoader color="#fff" />
+                    <span className="loading loading-spinner loading-lg"></span>
                 </div>
             ) : (
                 <motion.div

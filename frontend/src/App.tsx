@@ -18,8 +18,9 @@ import Footer from "./components/Footer";
 import AboutUs from "./pages/About";
 import Contact from "./pages/ContactUs";
 import Likes from "./pages/Likes";
-import { ScaleLoader } from "react-spinners";
+
 import Profile from "./pages/Profile";
+import EditBlog from "./pages/EditBlog";
 export default function App() {
     const location = useLocation();
     const proxy: String = import.meta.env.VITE_PROXY;
@@ -128,11 +129,12 @@ export default function App() {
         avgTemp: string;
         cityAndCountry: string;
     }) {
-        console.log(blog);
         axios
             .post(proxy + "/api/blogs/create", blog)
             .then(function (res) {
                 console.log(res);
+                navigate("/travel?bid=" + res.data.bid);
+                // return res.data.bid;
             })
             .catch(function (err) {
                 console.log(err);
@@ -206,6 +208,33 @@ export default function App() {
                 toast.error("Failed to like the blog!");
             });
     }
+    async function updateBlog(
+        bid: string,
+        blog: {
+            uid: string;
+            author: string;
+            title: string;
+            locations: string;
+            hotspots: string;
+            route: string;
+            about: string;
+            stories: string;
+            cover: null;
+            multiImage: null;
+            weather: string;
+            avgTemp: string;
+            cityAndCountry: string;
+        }
+    ) {
+        try {
+            setLoading(true);
+            axios.patch(proxy + "/api/blogs/updateBlogById?bid=" + bid, blog);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     function scrollToTop() {
         window.scrollTo({
@@ -245,7 +274,7 @@ export default function App() {
                     exit={{ opacity: 0 }}
                     className="backdrop-blur-md h-full w-full flex items-center justify-center z-10 absolute"
                 >
-                    <ScaleLoader color="#fff" />
+                    <span className="loading loading-spinner loading-lg"></span>
                 </motion.div>
             )}
             <Navbar
@@ -310,6 +339,16 @@ export default function App() {
                                 <Profile
                                     fetchBlogsByUser={fetchBlogsByUser}
                                     deleteBlog={deleteBlog}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/edit"
+                            element={
+                                <EditBlog
+                                    handleFetchBlog={getBlogById}
+                                    handleUpdateBlog={updateBlog}
+                                    handleUploadImage={uploadImage}
                                 />
                             }
                         />

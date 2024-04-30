@@ -1,15 +1,17 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-export default function CreateBlog({
-    handleCreateBlog,
+import { useNavigate, useSearchParams } from "react-router-dom";
+export default function EditBlog({
+    handleFetchBlog,
+    handleUpdateBlog,
     handleUploadImage,
 }: {
-    handleCreateBlog: Function;
+    handleFetchBlog: Function;
+    handleUpdateBlog: Function;
     handleUploadImage: Function;
 }) {
+    const [params] = useSearchParams();
     const [blog, setBlog] = useState({
         uid: "",
         author: "",
@@ -29,13 +31,28 @@ export default function CreateBlog({
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         if (user.uid) {
-            setBlog({ ...blog, uid: user.uid, author: user.name });
+            // setBlog({ ...blog, uid: user.uid, author: user.name });
+            getBlog();
+        } else if (params.get("bid") === "") {
+            navigate("/");
+            params.get("bid");
         } else {
             // toast.info("Login first");
             navigate("/login");
         }
     }, []);
 
+    async function getBlog() {
+        try {
+            setLoading(true);
+            const blog = await handleFetchBlog(params.get("bid"));
+            setBlog(blog);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
     const [coverImage, setCoverImage] = useState<File | null>(null);
     const [multiImage, setMultiImage] = useState<FileList | null>(null);
     const [loading, setLoading] = useState(false);
@@ -45,8 +62,6 @@ export default function CreateBlog({
             toast.error("Exactly three images are required.");
             return;
         }
-        // console.log(images);
-
         const uploadedImages = await Promise.all(
             images.map(async (img: any) => {
                 // console.log(img);
@@ -89,12 +104,11 @@ export default function CreateBlog({
             }
 
             if (coverImgUrl !== "") {
-                await handleCreateBlog({
+                handleUpdateBlog(params.get("bid"), {
                     ...blog,
                     cover: coverImgUrl,
                     multiImage: multiImgUrls,
                 });
-
                 setBlog({
                     ...blog,
                     title: "",
@@ -109,7 +123,8 @@ export default function CreateBlog({
                     cover: "",
                     multiImage: Array,
                 });
-                toast.success("Blog Uploaded!");
+                toast.success("Blog Updated!");
+                navigate("/travel?bid=" + params.get("bid"));
             }
         } catch (error) {
             console.error(error);
@@ -146,7 +161,7 @@ export default function CreateBlog({
                 transition={{ duration: 1, ease: [0.2, 1, 0.2, 1] }}
                 className="container relative mx-auto p-10 md:p-20 font-poppins"
             >
-                <h1 className="text-2xl font-bold mb-5">Create New Blog</h1>
+                <h1 className="text-2xl font-bold mb-5">Edit This Blog</h1>
                 <form className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
@@ -380,7 +395,7 @@ export default function CreateBlog({
                             className="btn mt-5"
                             onClick={(e) => handleSubmit(e)}
                         >
-                            Upload
+                            Update Blog
                         </button>
                     </div>
                 </form>

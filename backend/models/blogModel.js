@@ -47,7 +47,8 @@ blogSchema.statics.createBlog = async function (
             weather,
             avgTemp,
         });
-        return blogPost;
+        // console.log(blogPost);
+        return blogPost._id;
     } catch (err) {
         return err;
     }
@@ -100,6 +101,50 @@ blogSchema.statics.deleteBlog = async function (id) {
     } catch (err) {
         console.error(err);
         throw err;
+    }
+};
+
+blogSchema.statics.updateBlog = async function (
+    bid,
+    uid,
+    author,
+    title,
+    locations,
+    cover,
+    multiImage,
+    hotspots,
+    route,
+    about,
+    stories,
+    cityAndCountry,
+    weather,
+    avgTemp
+) {
+    try {
+        const blogToUpdate = await this.updateOne(
+            { _id: bid },
+            {
+                $set: {
+                    uid,
+                    author,
+                    title,
+                    locations,
+                    cover,
+                    multiImage,
+                    hotspots,
+                    route,
+                    about,
+                    stories,
+                    cityAndCountry,
+                    weather,
+                    avgTemp,
+                },
+            }
+        );
+        return blogToUpdate;
+    } catch (e) {
+        console.error(e);
+        throw e;
     }
 };
 module.exports = mongoose.model("blog", blogSchema);
