@@ -56,11 +56,16 @@ export default function Profile({ fetchBlogsByUser, deleteBlog }: any) {
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
-                                className="bg-[#dca54c] text-[#2a2a2a] p-5 rounded-lg space-y-6"
+                                className="bg-[#dca54c] text-[#2a2a2a] p-5 rounded-lg space-y-6 h-full flex items-center justify-between flex-col"
                             >
                                 <h1 className="capitalize font-poppins text-4xl font-bold">
                                     Hello, <span className="">{name}</span>!
                                 </h1>
+                                <div className="avatar">
+                                    <div className="w-60 rounded-full">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnfAxGV-fZxGL9elM_hQ2tp7skLeSwMyUiwo4lMm1zyA&s" />
+                                    </div>
+                                </div>
                                 <div className="font-poppins text-lg">
                                     <p>
                                         You've been quite busy with your blogs!

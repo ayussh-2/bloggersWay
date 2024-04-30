@@ -43,9 +43,11 @@ export default function HorizontalCard({
             <figure>
                 <img src={img} alt="image cover" />
             </figure>
-            <div className="card-body">
-                <h2 className="card-title capitalize">{title}</h2>
-                <p className="font-poppins capitalize">{author}</p>
+            <div className="card-body ">
+                <h2 className="card-title capitalize font-bold text-2xl">
+                    {title}
+                </h2>
+                <p className="font-noto capitalize font-semibold">{author}</p>
                 <div className="card-actions justify-end">
                     <button
                         className="btn btn-primary font-poppins"
