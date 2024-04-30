@@ -1,10 +1,11 @@
 import HorizontalCard from "../components/HorizontalCard";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 export default function Likes({ findUser, getBlog }: any) {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
     async function getUserLikes() {
         try {
             setLoading(true);
@@ -24,6 +25,10 @@ export default function Likes({ findUser, getBlog }: any) {
 
     useEffect(() => {
         getUserLikes();
+        const user = localStorage.getItem("user");
+        if (!user) {
+            navigate("/login");
+        }
     }, []);
     return (
         <div className="md:p-20 p-5">

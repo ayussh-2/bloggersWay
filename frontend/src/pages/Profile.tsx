@@ -1,14 +1,20 @@
 import HorizontalCard from "../components/HorizontalCard";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile({ fetchBlogsByUser, deleteBlog }: any) {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [name, setname] = useState("");
+    const navigate = useNavigate();
+
     useEffect(() => {
         getBlogs();
+        const user = localStorage.getItem("user");
+        if (!user) {
+            navigate("/login");
+        }
     }, []);
 
     async function deleteTheBlog(bid: string) {
