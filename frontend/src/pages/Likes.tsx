@@ -26,7 +26,10 @@ export default function Likes({ findUser, getBlog }: any) {
         getUserLikes();
     }, []);
     return (
-        <div className="p-20">
+        <div className="md:p-20 p-5">
+            <h1 className="text-3xl md:text-5xl font-bold font-poppins mb-10 text-center">
+                Likes <i className="fa-solid fa-heart"></i>
+            </h1>
             {loading ? (
                 <div className="flex h-screen font-poppins items-center justify-center w-full">
                     <span className="loading loading-spinner loading-lg"></span>
