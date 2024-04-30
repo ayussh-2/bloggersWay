@@ -55,6 +55,7 @@ export default function Likes({ findUser, getBlog }: any) {
                                                 author={blog.author}
                                                 bid={blog._id}
                                                 delete={false}
+                                                deleteBlogFn={() => {}}
                                             />
                                         </motion.div>
                                     </div>

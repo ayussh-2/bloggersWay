@@ -6,6 +6,7 @@ const {
     returnCount,
     blogFind,
     getBlogsByUser,
+    deleteBlogById,
 } = require("../controllers/blogController");
 
 const router = express.Router();
@@ -15,4 +16,5 @@ router.get("/all", getAllBlogs);
 router.get("/count", returnCount);
 router.get("/getBlogById", blogFind);
 router.get("/getBlogByUser", getBlogsByUser);
+router.delete("/deleteBlogById", deleteBlogById);
 module.exports = router;

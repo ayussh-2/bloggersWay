@@ -99,6 +99,19 @@ export default function App() {
             throw error;
         }
     }
+    async function deleteBlog(bid: string) {
+        try {
+            const response = await axios.delete(
+                proxy + "/api/blogs/deleteBlogById?bid=" + bid
+            );
+            toast.success("Blog Deleted Successfully!");
+            return response.data;
+        } catch (error) {
+            console.log("Error deleting blog:", error);
+            toast.error("Failed to delete the blog!");
+            throw error;
+        }
+    }
 
     function createBlog(blog: {
         uid: string;
@@ -294,7 +307,10 @@ export default function App() {
                         <Route
                             path="/profile"
                             element={
-                                <Profile fetchBlogsByUser={fetchBlogsByUser} />
+                                <Profile
+                                    fetchBlogsByUser={fetchBlogsByUser}
+                                    deleteBlog={deleteBlog}
+                                />
                             }
                         />
                         <Route path="*" element={<NotFound />} />

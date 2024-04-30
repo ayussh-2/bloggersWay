@@ -93,4 +93,13 @@ blogSchema.statics.getBlogById = async function (id) {
     }
 };
 
+blogSchema.statics.deleteBlog = async function (id) {
+    try {
+        const blog = await this.deleteOne({ _id: id });
+        return blog;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
 module.exports = mongoose.model("blog", blogSchema);

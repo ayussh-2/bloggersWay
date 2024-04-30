@@ -77,10 +77,20 @@ const blogFind = async (req, res) => {
     }
 };
 
+const deleteBlogById = async (req, res) => {
+    const { bid } = req.query;
+    try {
+        const result = await blog.deleteBlog(bid);
+        res.status(200).json({ msg: "Blog deleted successfully" });
+    } catch (err) {
+        res.status(400).json({ err: err.message });
+    }
+};
 module.exports = {
     createBlog,
     getAllBlogs,
     returnCount,
     blogFind,
     getBlogsByUser,
+    deleteBlogById,
 };

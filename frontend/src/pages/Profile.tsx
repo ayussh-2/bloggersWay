@@ -2,11 +2,26 @@ import HorizontalCard from "../components/HorizontalCard";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-export default function Profile({ fetchBlogsByUser }: any) {
+
+export default function Profile({ fetchBlogsByUser, deleteBlog }: any) {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [name, setname] = useState("");
     useEffect(() => {
+        getBlogs();
+    }, []);
+
+    async function deleteTheBlog(bid: string) {
+        try {
+            await deleteBlog(bid);
+            // setBlogs(blogs.filter((blog: any) => blog._id !== bid));
+            getBlogs();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function getBlogs() {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         setname(user.name);
         setLoading(true);
@@ -19,9 +34,9 @@ export default function Profile({ fetchBlogsByUser }: any) {
                 console.log(err);
                 setLoading(false);
             });
-    }, []);
+    }
     return (
-        <div className="p-20">
+        <div className="md:p-20 p-5">
             {loading ? (
                 <div className="flex h-screen font-poppins items-center justify-center w-full">
                     <span className="loading loading-spinner loading-lg"></span>
@@ -30,7 +45,7 @@ export default function Profile({ fetchBlogsByUser }: any) {
                 <>
                     {" "}
                     {blogs.length > 0 ? (
-                        <div className="gap-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 place-content-center">
+                        <div className="gap-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 z-0 xl:grid-cols-3 place-content-center">
                             <motion.div
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -77,7 +92,7 @@ export default function Profile({ fetchBlogsByUser }: any) {
                                     },
                                     index: number
                                 ) => (
-                                    <div key={blog._id} className="mb-4">
+                                    <div key={blog._id} className="mb-4 z-0">
                                         <motion.div
                                             initial={{ opacity: 0, y: 50 }}
                                             animate={{ opacity: 1, y: 0 }}
@@ -92,6 +107,7 @@ export default function Profile({ fetchBlogsByUser }: any) {
                                                 author={blog.author}
                                                 bid={blog._id}
                                                 delete={true}
+                                                deleteBlogFn={deleteTheBlog}
                                             />
                                         </motion.div>
                                     </div>
@@ -101,7 +117,7 @@ export default function Profile({ fetchBlogsByUser }: any) {
                     ) : (
                         <div className="flex h-screen font-poppins items-center justify-center w-full">
                             <h1 className="text-xl text-white text-center capitalize">
-                                Please Login First!
+                                No Blogs Written Yet!
                             </h1>
                         </div>
                     )}
