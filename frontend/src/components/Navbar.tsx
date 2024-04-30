@@ -30,7 +30,7 @@ export default function Navbar({
         <motion.div
             initial={{ opacity: 0, y: "-100vh" }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4, ease: [0.2, 1, 0.2, 1] }}
+            transition={{ duration: 0.5, ease: [0.2, 1, 0.2, 1] }}
             className="navbar bg-base-100 md:px-36"
         >
             <div className="navbar-start">
